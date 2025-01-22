@@ -1,0 +1,44 @@
+{
+  "name": "modal-plugin-nikitas",
+  "version": "1.0.21",
+  "description": "test plugin modals",
+  "main": "dist/index.ts",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Agusha991/modal-plugin-nikitas.git"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "plugin",
+    "modal"
+  ],
+  "author": "Agusha",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Agusha991/modal-plugin-nikitas/issues"
+  },
+  "homepage": "https://github.com/Agusha991/modal-plugin-nikitas.git#readme",
+  "dependencies": {
+    "vue": "^3.0.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "css-loader": "^7.1.2",
+    "sass": "^1.83.4",
+    "sass-loader": "^12.6.0",
+    "ts-loader": "^9.0.0",
+    "vue-loader": "^16.8.3",
+    "vue-style-loader": "^4.1.3",
+    "vue-template-compiler": "^2.7.16",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^4.10.0"
+  }
+}
