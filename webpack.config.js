@@ -7,7 +7,7 @@ module.exports = {
     output: {
         filename: 'index.js',
         path: path.resolve(__dirname, 'dist'),
-        library: 'ModalPluginNikitas', // Change this to match your plugin's name
+        library: 'nikitaModal', // Change this to match your plugin's name
         libraryTarget: 'umd', // Universal Module Definition
         umdNamedDefine: true, // Name the UMD module
     },
