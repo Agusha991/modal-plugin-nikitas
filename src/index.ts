@@ -1,17 +1,33 @@
 import { App } from 'vue';
+import Modal from './components/Modal.vue';
 
 export default {
     install(app: App) {
-        // Define global `$modal` methods
-        app.config.globalProperties.$modal = {
-            open(name: string, options: Record<string, any>) {
+        // Register the Modal component globally
+        app.component('Modal', Modal);
+        console.log('agusha_nikita plugin initialized!');
+
+        // Modal methods
+        const modalMethods = {
+            open(name: string, options: Record<string, any> = {}) {
                 console.log(`Opening modal: ${name}`, options);
-                // Add logic for opening a modal
             },
-            close(name: string) {
-                console.log(`Closing modal: ${name}`);
-                // Add logic for closing a modal
+            close(id: number) {
+                console.log(`Closing modal: ${id}`);
             },
         };
+
+        // Make $modal globally accessible
+        app.config.globalProperties.$modal = modalMethods;
+        console.log('modalMethods have been added to globalProperties');
     },
 };
+declare module '@vue/runtime-core' {
+    interface ComponentCustomProperties {
+        $modal: {
+            open: (name: string, options?: Record<string, any>) => void;
+            close: (id: number) => void;
+        };
+    }
+}
+
