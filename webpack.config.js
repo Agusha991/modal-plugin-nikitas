@@ -5,7 +5,7 @@ module.exports = {
     entry: './src/index.ts',
     mode: "none",
     output: {
-        filename: 'index.js',
+        filename: 'index.ts',
         path: path.resolve(__dirname, 'dist'),
         library: 'nikitaModal', // Change this to match your plugin's name
         libraryTarget: 'umd', // Universal Module Definition
