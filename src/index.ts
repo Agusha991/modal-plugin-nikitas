@@ -1,10 +1,12 @@
+// src/index.ts (Plugin Entry Point)
 import { App } from 'vue';
 import Modal from './components/Modal.vue';
 
-export default {
+const ModalPlugin = {
     install(app: App) {
         // Register the Modal component globally
         app.component('Modal', Modal);
+
         console.log('agusha_nikita plugin initialized!');
 
         // Modal methods
@@ -22,6 +24,11 @@ export default {
         console.log('modalMethods have been added to globalProperties');
     },
 };
+
+// Export the plugin
+export default ModalPlugin;
+
+// Extend Vue's types for globalProperties
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
         $modal: {
@@ -30,4 +37,3 @@ declare module '@vue/runtime-core' {
         };
     }
 }
-
