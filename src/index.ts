@@ -1,8 +1,8 @@
-// src/index.ts (Plugin Entry Point)
+// index.ts
 import { App } from 'vue';
 import Modal from './components/Modal.vue';
 
-const ModalPlugin = {
+export default {
     install(app: App) {
         // Register the Modal component globally
         app.component('Modal', Modal);
@@ -21,14 +21,12 @@ const ModalPlugin = {
 
         // Make $modal globally accessible
         app.config.globalProperties.$modal = modalMethods;
-        console.log('modalMethods have been added to globalProperties');
+
+        console.log('Modal plugin installed!');
     },
 };
 
-// Export the plugin
-export default ModalPlugin;
-
-// Extend Vue's types for globalProperties
+// TypeScript declaration for global properties
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
         $modal: {
