@@ -1,5 +1,4 @@
-// index.ts
-import { App } from 'vue';
+import { App, ref } from 'vue';
 import Modal from './components/Modal.vue';
 
 export default {
@@ -9,13 +8,21 @@ export default {
 
         console.log('agusha_nikita plugin initialized!');
 
-        // Modal methods
+        // Modal methods with Composition API
+        const modals = ref<{ id: number; name: string; options: Record<string, any> }[]>([]);
+
         const modalMethods = {
             open(name: string, options: Record<string, any> = {}) {
+                const id = Date.now();
+                modals.value.push({ id, name, options });
                 console.log(`Opening modal: ${name}`, options);
             },
             close(id: number) {
-                console.log(`Closing modal: ${id}`);
+                const index = modals.value.findIndex((modal) => modal.id === id);
+                if (index !== -1) {
+                    modals.value.splice(index, 1);
+                    console.log(`Closing modal: ${id}`);
+                }
             },
         };
 
