@@ -1,6 +1,6 @@
 {
   "name": "modal-plugin-nikitas",
-  "version": "1.0.32",
+  "version": "1.0.33",
   "description": "test plugin modals",
   "main": "dist/index.ts",
   "types": "dist/index.d.ts",
@@ -26,7 +26,7 @@
   "homepage": "https://github.com/Agusha991/modal-plugin-nikitas.git#readme",
   "dependencies": {
     "vue": "^3.0.0",
-    "agusha_nikita": "^1.0.32"
+    "agusha_nikita": "^1.0.33"
   },
   "peerDependencies": {
     "vue": "^3.0.0"
