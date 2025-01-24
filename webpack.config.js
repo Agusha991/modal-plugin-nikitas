@@ -5,11 +5,11 @@ module.exports = {
     entry: './src/index.ts',
     mode: "none",
     output: {
-        filename: 'index.ts',
+        filename: 'index.js',
         path: path.resolve(__dirname, 'dist'),
-        library: 'nikitaModal', // Change this to match your plugin's name
-        libraryTarget: 'umd', // Universal Module Definition
-        umdNamedDefine: true, // Name the UMD module
+        library: 'nikitaModal',
+        libraryTarget: 'umd',
+        umdNamedDefine: true,
     },
     resolve: {
         extensions: ['.js', '.ts', '.vue', '.json'],

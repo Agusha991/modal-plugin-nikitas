@@ -5,9 +5,8 @@ export default {
     install(app: App) {
         // Register the Modal component globally
         app.component('Modal', Modal);
-        console.log('agusha_nikita plugin initialized!');
 
-        // Modal methods
+        // Add the $modal method to globalProperties
         const modalMethods = {
             open(name: string, options: Record<string, any> = {}) {
                 console.log(`Opening modal: ${name}`, options);
@@ -17,11 +16,12 @@ export default {
             },
         };
 
-        // Make $modal globally accessible
         app.config.globalProperties.$modal = modalMethods;
-        console.log('modalMethods have been added to globalProperties');
+        console.log('modalMethods added to globalProperties');
     },
 };
+
+// TypeScript augmentation for globalProperties
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
         $modal: {
