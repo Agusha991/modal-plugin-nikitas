@@ -1,6 +1,8 @@
 <template>
-  <div class="modal" v-if="visible">
+  <div class="modal" v-for="(modal, index) in modalStore.modals" :key="index">
     <div class="modal-content">
+      <div>{{modal.name}}</div>
+      <div>{{modal.options}}</div>
       <slot></slot>
       <button @click="close">Close</button>
     </div>
