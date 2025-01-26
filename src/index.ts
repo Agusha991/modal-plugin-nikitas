@@ -3,10 +3,9 @@ import Modal from './components/Modal.vue';
 
 export default {
     install(app: App) {
-        // Register the Modal component globally
+        console.log('Installing nikitaModal plugin'); // Debug
         app.component('Modal', Modal);
 
-        // Add the $modal method to globalProperties
         const modalMethods = {
             open(name: string, options: Record<string, any> = {}) {
                 console.log(`Opening modal: ${name}`, options);
@@ -18,7 +17,7 @@ export default {
 
         app.config.globalProperties.$modal = modalMethods;
         console.log('modalMethods added to globalProperties');
-    },
+    }
 };
 
 // TypeScript augmentation for globalProperties
