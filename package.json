@@ -2,7 +2,7 @@
   "name": "modal-plugin-nikitas",
   "version": "1.0.42",
   "description": "test plugin modals",
-  "main": "dist/index.ts",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "webpack --config webpack.config.js",
