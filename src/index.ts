@@ -1,27 +1,19 @@
-import { App, inject, InjectionKey, reactive } from 'vue';
+import { App } from 'vue';
 
-interface ModalState {
-    open: (name: string, options?: Record<string, any>) => void;
-    close: (id: number) => void;
-}
 
-const ModalSymbol: InjectionKey<ModalState> = Symbol('modal');
 
-export default {
+const nikitaModal = {
     install(app: App) {
-        console.log('Installing Modal Plugin');
-
-        const state = reactive<ModalState>({
-            open: (name, options = {}) => {
-                console.log(`Opening modal: ${name}`, options);
+        console.log('Installing nikitaModal plugin...');
+        app.config.globalProperties.$modal = {
+            open(name: string, options = {}) {
+                console.log(`Modal ${name} opened`, options);
             },
-            close: (id) => {
-                console.log(`Closing modal: ${id}`);
+            close(name: string) {
+                console.log(`Modal ${name} closed`);
             },
-        });
-
-        app.provide(ModalSymbol, state);
-
-        console.log('Added $modal to globalProperties');
+        };
     },
 };
+
+export default nikitaModal;
