@@ -1,9 +1,9 @@
 <template>
   <teleport to="body">
-    <div class="modal" v-for="(modal, index) in modalStore.modals" :key="index">
+    <div class="modal">
       <div class="modal-content">
-        <div>{{ modal.name }}</div>
-        <div>{{ modal.options }}</div>
+        <div>{{ modalStore.modals }}</div>
+        <div>some text</div>
         <slot></slot>
         <button @click="close">Close</button>
       </div>

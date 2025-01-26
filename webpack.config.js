@@ -1,11 +1,11 @@
 const path = require('path');
-const { VueLoaderPlugin } = require('vue-loader');
+const {VueLoaderPlugin} = require('vue-loader');
 
 module.exports = {
     entry: './src/index.ts',
     mode: "none",
     output: {
-        filename: 'index.ts',
+        filename: 'index.js',
         path: path.resolve(__dirname, 'dist'),
         library: 'nikitaModal',
         libraryTarget: 'umd',

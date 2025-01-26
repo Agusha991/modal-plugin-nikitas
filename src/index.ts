@@ -9,14 +9,15 @@ export default {
 
         app.config.globalProperties.$modal = {
             open(name: string, options: Record<string, any> = {}) {
+                console.log('this call', name, options);
                 modalStore.openModal(name, options); // Use Pinia store to open modal
+                console.log('this call', modalStore.modals);
             },
             close(id: number) {
                 modalStore.closeModal(id); // Use Pinia store to close modal
             },
         };
 
-        app.component('Modal', Modal);
         app.component('GlobalModal', Modal); // Register modal component
         console.log('Modal Plugin Installed with Pinia store');
     },
