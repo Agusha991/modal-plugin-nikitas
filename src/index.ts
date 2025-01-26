@@ -16,7 +16,6 @@ export default {
     },
 };
 
-// TypeScript augmentation for globalProperties
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
         $modal: {
