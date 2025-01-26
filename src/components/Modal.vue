@@ -1,12 +1,14 @@
 <template>
-  <div class="modal" v-for="(modal, index) in modalStore.modals" :key="index">
-    <div class="modal-content">
-      <div>{{modal.name}}</div>
-      <div>{{modal.options}}</div>
-      <slot></slot>
-      <button @click="close">Close</button>
+  <teleport to="body">
+    <div class="modal" v-for="(modal, index) in modalStore.modals" :key="index">
+      <div class="modal-content">
+        <div>{{ modal.name }}</div>
+        <div>{{ modal.options }}</div>
+        <slot></slot>
+        <button @click="close">Close</button>
+      </div>
     </div>
-  </div>
+  </teleport>
 </template>
 
 <script setup lang="ts">

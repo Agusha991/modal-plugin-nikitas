@@ -9,6 +9,7 @@ export const useModalStore = defineStore('modal', {
             const id = Date.now(); // Generate unique modal ID
             this.modals.push({ id, name, options });
             console.log(`Opening modal: ${name}`, options);
+            console.log(this.modals)
         },
         closeModal(id: number) {
             const index = this.modals.findIndex((modal) => modal.id === id);

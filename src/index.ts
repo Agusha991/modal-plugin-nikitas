@@ -4,6 +4,7 @@ import Modal from './components/Modal.vue';
 
 export default {
     install(app: App) {
+        debugger
         const modalStore = useModalStore(); // Use the modal store
 
         app.config.globalProperties.$modal = {
@@ -15,6 +16,7 @@ export default {
             },
         };
 
+        app.component('Modal', Modal);
         app.component('GlobalModal', Modal); // Register modal component
         console.log('Modal Plugin Installed with Pinia store');
     },
