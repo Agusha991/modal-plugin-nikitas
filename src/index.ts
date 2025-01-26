@@ -3,10 +3,8 @@ import Modal from './components/Modal.vue';
 
 export default {
     install(app: App) {
-        console.log('Installing nikitaModal plugin'); // Debug
-        app.component('Modal', Modal);
-
-        const modalMethods = {
+        console.log('Installing Modal Plugin'); // Debugging message
+        app.config.globalProperties.$modal = {
             open(name: string, options: Record<string, any> = {}) {
                 console.log(`Opening modal: ${name}`, options);
             },
@@ -14,10 +12,8 @@ export default {
                 console.log(`Closing modal: ${id}`);
             },
         };
-
-        app.config.globalProperties.$modal = modalMethods;
-        console.log('modalMethods added to globalProperties');
-    }
+        console.log('Added $modal to globalProperties');
+    },
 };
 
 // TypeScript augmentation for globalProperties
