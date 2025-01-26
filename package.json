@@ -1,6 +1,6 @@
 {
   "name": "modal-plugin-nikitas",
-  "version": "1.0.44",
+  "version": "1.0.45",
   "description": "test plugin modals",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -37,5 +37,8 @@
     "vue-template-compiler": "^2.7.16",
     "webpack": "^5.97.1",
     "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "pinia": "^2.3.1"
   }
 }

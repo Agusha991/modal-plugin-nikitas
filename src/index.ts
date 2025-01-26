@@ -1,17 +1,30 @@
-import { App } from 'vue';
+import { App, createApp } from 'vue';
+import { useModalStore } from './store/modal'; // Import the store
+import Modal from './components/Modal.vue';
 
-const nikitaModal = {
+export default {
     install(app: App) {
-        console.log('Installing nikitaModal plugin...');
+        const modalStore = useModalStore(); // Use the modal store
+
         app.config.globalProperties.$modal = {
-            open(name: string, options = {}) {
-                console.log(`Modal ${name} opened`, options);
+            open(name: string, options: Record<string, any> = {}) {
+                modalStore.openModal(name, options); // Use Pinia store to open modal
             },
-            close(name: string) {
-                console.log(`Modal ${name} closed`);
+            close(id: number) {
+                modalStore.closeModal(id); // Use Pinia store to close modal
             },
         };
+
+        app.component('GlobalModal', Modal); // Register modal component
+        console.log('Modal Plugin Installed with Pinia store');
     },
 };
 
-export default nikitaModal;
+declare module '@vue/runtime-core' {
+    interface ComponentCustomProperties {
+        $modal: {
+            open: (name: string, options?: Record<string, any>) => void;
+            close: (id: number) => void;
+        };
+    }
+}

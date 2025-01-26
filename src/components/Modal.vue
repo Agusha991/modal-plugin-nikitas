@@ -7,24 +7,28 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script setup lang="ts">
+import {ref} from "vue";
+import {useModalStore} from "@/store/modal";
 
-export default defineComponent({
+defineOptions({
   name: 'Modal',
-  setup() {
-    const visible = ref(false);
+})
+const modalStore = useModalStore();
+console.log(modalStore.modals)
+const handleOutsideClick = (e: MouseEvent) => {
+  const modalElement = (e.target as HTMLElement).closest('.modal');
+  if (!modalElement) {
+    modalStore.closeModal(0); // Pass the modal ID that should be closed
+  }
+};
 
-    const close = () => {
-      visible.value = false;
-    };
+const visible = ref(false);
 
-    return {
-      visible,
-      close,
-    };
-  },
-});
+const close = () => {
+  visible.value = false;
+};
+
 </script>
 
 <style scoped lang="scss">
