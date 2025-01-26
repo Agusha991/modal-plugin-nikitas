@@ -1,7 +1,5 @@
 import { App } from 'vue';
 
-
-
 const nikitaModal = {
     install(app: App) {
         console.log('Installing nikitaModal plugin...');
