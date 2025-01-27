@@ -3,24 +3,24 @@
     <div class="modal-content">
       <h3>{{ options.title }}</h3>
       <p>{{ options.message }}</p>
-      <button @click="() =>onClose">Close</button>
+      <button @click="props.onClose">Close</button>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  props: {
-    options: {
-      type: Object,
-      required: true,
-    },
-    onClose: {
-      type: Function,
-      required: true,
-    },
+<script setup lang="ts">
+const props = defineProps({
+  options: {
+    type: Object,
+    required: true,
   },
-};
+  onClose: {
+    type: Function,
+    required: true,
+  },
+})
+
+console.log(props)
 </script>
 
 <style scoped lang="scss">
