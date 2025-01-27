@@ -32,13 +32,6 @@ export default {
         const modalContainer = document.createElement('div');
         document.body.appendChild(modalContainer);
 
-// Найдите или создайте `div` с классом container
-//         const container = document.querySelector('.container');
-//         if (container) {
-//             container.appendChild(modalContainer);
-//         } else {
-//             console.error('Container with class "container" not found');
-//         }
         // Реактивное обновление модалок через watch
         watch(
             () => modalStore.modals,
