@@ -4,7 +4,7 @@ import Modal from './components/Modal.vue';
 
 export default {
     install(app: App) {
-        debugger
+        console.log('Plugin installation started');
         const modalStore = useModalStore(); // Use the modal store
         console.log('Modal Plugin Installed with Pinia store');
         app.config.globalProperties.$modal = {
@@ -18,7 +18,7 @@ export default {
             },
         };
 
-        app.component('Modal', Modal); // Register modal component
+        app.component('nikitaModal', Modal); // Register modal component
     },
 };
 
