@@ -48,7 +48,10 @@ export default {
                         render() {
                             return h(Modal, {
                                 options: modal.options,
-                                onClose: () => modalStore.closeModal(modal.id),
+                                onClose: () => {
+                                    console.log('this close modal')
+                                    modalStore.closeModal(modal.id)
+                                }
                             });
                         },
                     });

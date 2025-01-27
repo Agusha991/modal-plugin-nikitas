@@ -14,8 +14,8 @@ export const useModalStore = defineStore('modal', {
             console.log('Modal added:', this.modals);
         },
         closeModal(id: number) {
-            this.modals = this.modals.filter((modal) => modal.id !== id);
             console.log('Modal removed:', this.modals);
+            this.modals = this.modals.filter((modal) => modal.id !== id);
         },
     },
 });
