@@ -2,6 +2,7 @@ import {App, createApp, h} from 'vue';
 import { createPinia, Pinia } from 'pinia';
 import { useModalStore } from './store/modal'; // Import the store
 import Modal from './components/Modal.vue';
+import { watch } from 'vue';
 
 export default {
     install(app: any) {
@@ -27,24 +28,46 @@ export default {
         };
 
         const modalContainer = document.createElement('div');
+        modalContainer.id = 'modal-container';
         document.body.appendChild(modalContainer);
 
-        // Подписываемся на изменения в сторе и рендерим модалки
-        modalStore.$subscribe(() => {
-            console.log(modalStore.modals, 'modalContainer subscribe');
-            modalContainer.innerHTML = ''; // Очищаем контейнер перед ререндерингом
-            modalStore.modals.forEach((modal) => {
-                const modalApp = createApp({
-                    render() {
-                        return h(Modal, {
-                            options: modal.options,
-                            onClose: () => modalStore.closeModal(modal.id),
-                        });
-                    },
+        watch(
+            () => modalStore.modals,
+            (newModals) => {
+                console.log(newModals, 'modalContainer watch');
+                modalContainer.innerHTML = ''; // Очищаем контейнер перед ререндерингом
+                newModals.forEach((modal) => {
+                    const modalApp = createApp({
+                        render() {
+                            return h(Modal, {
+                                options: modal.options,
+                                onClose: () => modalStore.closeModal(modal.id),
+                            });
+                        },
+                    });
+                    modalApp.mount(modalContainer); // Монтируем модалку
                 });
-                modalApp.mount(modalContainer); // Монтируем модалку
-            });
-        });
+            },
+            { deep: true }
+        );
+
+
+        // Подписываемся на изменения в сторе и рендерим модалки
+        // modalStore.$subscribe(() => {
+        //     console.log(modalStore.modals, 'modalContainer subscribe');
+            // modalContainer.innerHTML = ''; // Очищаем контейнер перед ререндерингом
+            // modalStore.modals.forEach((modal) => {
+            //     const modalApp = createApp({
+            //         render() {
+            //             return h(Modal, {
+            //                 options: modal.options,
+            //                 onClose: () => modalStore.closeModal(modal.id),
+            //             });
+            //         },
+            //     });
+            //     modalApp.mount(modalContainer); // Монтируем модалку
+            // });
+        // });
 
         app.component('NikitaModal', Modal); // Register modal component globally
     },
