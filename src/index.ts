@@ -1,12 +1,12 @@
-import {App, createApp, h} from 'vue';
-import { createPinia, Pinia } from 'pinia';
-import { useModalStore } from './store/modal'; // Import the store
+import { createApp, h } from 'vue';
+import { createPinia } from 'pinia';
+import { useModalStore } from './store/modal';
 import Modal from './components/Modal.vue';
 import { watch } from 'vue';
 
 export default {
     install(app: any) {
-        // Check if Pinia is already installed
+        // Установка Pinia, если еще не установлена
         if (!app._context.pinia) {
             const pinia = createPinia();
             app.use(pinia);
@@ -16,26 +16,39 @@ export default {
 
         console.log('Plugin installation started');
 
+        // Добавление глобального метода $modal
         app.config.globalProperties.$modal = {
             open(name: string, options: Record<string, any> = {}) {
-                modalStore.openModal(name, options); // Use Pinia store to open modal
+                modalStore.openModal(name, options); // Открытие модалки через Pinia
                 console.log('Current modals:', modalStore.modals);
             },
             close(id: number) {
                 console.log('Closing modal', id);
-                modalStore.closeModal(id); // Use Pinia store to close modal
+                modalStore.closeModal(id); // Закрытие модалки через Pinia
             },
         };
 
+        // Найдем элемент с классом container
+        const container = document.querySelector('.container');
+        if (!container) {
+            console.error('Container with class "container" not found in DOM!');
+            return;
+        }
+
         const modalContainer = document.createElement('div');
         modalContainer.id = 'modal-container';
-        document.body.appendChild(modalContainer);
+        container.appendChild(modalContainer);
 
+        // Реактивное обновление модалок через watch
         watch(
             () => modalStore.modals,
             (newModals) => {
-                console.log(newModals, 'modalContainer watch');
-                modalContainer.innerHTML = ''; // Очищаем контейнер перед ререндерингом
+                console.log('Updated modals:', newModals);
+
+                // Удаляем предыдущие модалки
+                modalContainer.innerHTML = '';
+
+                // Для каждой модалки создаем отдельное приложение
                 newModals.forEach((modal) => {
                     const modalApp = createApp({
                         render() {
@@ -48,32 +61,14 @@ export default {
                     modalApp.mount(modalContainer); // Монтируем модалку
                 });
             },
-            { deep: true }
+            { deep: true } // Глубокое отслеживание изменений
         );
 
-
-        // Подписываемся на изменения в сторе и рендерим модалки
-        // modalStore.$subscribe(() => {
-        //     console.log(modalStore.modals, 'modalContainer subscribe');
-            // modalContainer.innerHTML = ''; // Очищаем контейнер перед ререндерингом
-            // modalStore.modals.forEach((modal) => {
-            //     const modalApp = createApp({
-            //         render() {
-            //             return h(Modal, {
-            //                 options: modal.options,
-            //                 onClose: () => modalStore.closeModal(modal.id),
-            //             });
-            //         },
-            //     });
-            //     modalApp.mount(modalContainer); // Монтируем модалку
-            // });
-        // });
-
-        app.component('NikitaModal', Modal); // Register modal component globally
+        console.log('Plugin installed successfully');
     },
 };
 
-// TypeScript declaration to extend ComponentCustomProperties
+// Расширение глобального интерфейса для TypeScript
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
         $modal: {
