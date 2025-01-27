@@ -31,6 +31,7 @@ export default {
 
         // Подписываемся на изменения в сторе и рендерим модалки
         modalStore.$subscribe(() => {
+            console.log(modalStore.modals, 'modalContainer subscribe');
             modalContainer.innerHTML = ''; // Очищаем контейнер перед ререндерингом
             modalStore.modals.forEach((modal) => {
                 const modalApp = createApp({
