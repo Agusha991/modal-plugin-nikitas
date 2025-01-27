@@ -12,18 +12,25 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+ type ModalStore = {
+  modals: { id: number; name: string; options: Record<string, any> }[];
+  openModal: (name: string, options?: Record<string, any>) => void;
+  closeModal: (id: number) => void;
+};
+import {onMounted, ref} from "vue";
 import {useModalStore} from "@/store/modal";
 
 defineOptions({
   name: 'Modal',
 })
-const modalStore = useModalStore();
-console.log(modalStore.modals)
+ const modalStore = ref<ModalStore>({} as ModalStore); // modalStore can be null initially
+
+console.log(modalStore.value.modals)
+
 const handleOutsideClick = (e: MouseEvent) => {
   const modalElement = (e.target as HTMLElement).closest('.modal');
   if (!modalElement) {
-    modalStore.closeModal(0); // Pass the modal ID that should be closed
+    modalStore.value.closeModal(0); // Pass the modal ID that should be closed
   }
 };
 
@@ -32,6 +39,10 @@ const visible = ref(false);
 const close = () => {
   visible.value = false;
 };
+
+onMounted(() => {
+  modalStore.value = useModalStore();
+});
 
 </script>
 

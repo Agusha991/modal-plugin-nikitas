@@ -1,9 +1,14 @@
 import { App, createApp } from 'vue';
 import { useModalStore } from './store/modal'; // Import the store
 import Modal from './components/Modal.vue';
+import {createPinia} from "pinia";
 
 export default {
-    install(app: App) {
+    install(app: any) {
+        if (!app._pinia) {
+            const pinia = createPinia()
+            app.use(pinia)
+        }
         console.log('Plugin installation started');
         const modalStore = useModalStore(); // Use the modal store
         console.log('Modal Plugin Installed with Pinia store');
