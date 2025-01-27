@@ -1,47 +1,36 @@
 <template>
-  <teleport to="body">
-    <div class="modal" v-if="visible">
-      <div class="modal-content">
-        <div>{{ modalStore.modals }}</div>
-        <div>some text</div>
-        <div>{{ options }}</div>
-<!--        <slot/>-->
-        <button @click="close">Close</button>
-      </div>
+  <div v-if="visible" class="modal">
+    <div class="modal-content">
+      <h3>{{ options.title }}</h3>
+      <p>{{ options.text }}</p>
+      <button @click="close">Close</button>
     </div>
-  </teleport>
+  </div>
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, ref} from "vue";
-import {useModalStore} from "@/store/modal";
+import {ref} from "vue";
 
-defineOptions({
-  name: 'Modal',
-})
- const modalStore = useModalStore(); // Directly call the store
+const props = defineProps({
+  options: {
+    type: Object,
+    required: true,
+  },
+  onClose: {
+    type: Function,
+    required: true,
+  },
+});
 
-console.log('check store in component', modalStore)
-
-const handleOutsideClick = (e: MouseEvent) => {
-  const modalElement = (e.target as HTMLElement).closest('.modal');
-  if (!modalElement) {
-    modalStore?.closeModal(0); // Pass the modal ID that should be closed
-  }
-};
-
-const currentModal = computed(() => modalStore.modals[modalStore.modals.length - 1]); // Последнее модальное окно
-
-const visible = computed(() => !!currentModal.value); // Показывать модалку, если она есть
-const options = computed(() => currentModal.value?.options || {});
+const visible = ref(true);
 
 const close = () => {
-  modalStore.closeModal(currentModal.value?.id); // Закрытие модалки через стор
+  visible.value = false;
+  props.onClose();
 };
-
 </script>
 
-<style lang="scss">
+<style scoped>
 .modal {
   position: fixed;
   top: 0;
@@ -53,7 +42,6 @@ const close = () => {
   justify-content: center;
   align-items: center;
 }
-
 .modal-content {
   background: white;
   padding: 20px;

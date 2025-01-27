@@ -1,21 +1,18 @@
-import {defineStore} from 'pinia';
+// store/modal.ts (внутри плагина)
+import { defineStore } from 'pinia';
 
 export const useModalStore = defineStore('modal', {
     state: () => ({
-        modals: [] as { id: number; name: string; options: Record<string, any> }[],
+        modals: [] as Array<{ id: number; name: string; options: Record<string, any> }>,
     }),
     actions: {
         openModal(name: string, options: Record<string, any> = {}) {
-            const id = Date.now(); // Generate unique modal ID
-            this.modals.push({id, name, options});
-            console.log('store in modal store', this.modals)
+            const id = Date.now();
+            this.modals.push({ id, name, options }); // Добавляем новую модалку
+            console.log(this.modals, 'store')
         },
         closeModal(id: number) {
-            const index = this.modals.findIndex((modal) => modal.id === id);
-            if (index !== -1) {
-                this.modals.splice(index, 1);
-                console.log(`Closing modal: ${id}`);
-            }
+            this.modals = this.modals.filter((modal) => modal.id !== id); // Закрываем модалку по ID
         },
     },
 });

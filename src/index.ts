@@ -29,21 +29,20 @@ export default {
         const modalContainer = document.createElement('div');
         document.body.appendChild(modalContainer);
 
-        // Следим за изменениями в сторе и рендерим компонент
+        // Подписываемся на изменения в сторе и рендерим модалки
         modalStore.$subscribe(() => {
-            const modal = modalStore.modals[modalStore.modals.length - 1]; // Берем последнее окно
-            if (modal) {
+            modalContainer.innerHTML = ''; // Очищаем контейнер перед ререндерингом
+            modalStore.modals.forEach((modal) => {
                 const modalApp = createApp({
                     render() {
                         return h(Modal, {
                             options: modal.options,
-                            onClose: () => modalStore.closeModal(modal.id), // Закрытие модалки
+                            onClose: () => modalStore.closeModal(modal.id),
                         });
                     },
                 });
-
-                modalApp.mount(modalContainer); // Монтируем компонент в контейнер
-            }
+                modalApp.mount(modalContainer); // Монтируем модалку
+            });
         });
 
         app.component('NikitaModal', Modal); // Register modal component globally
