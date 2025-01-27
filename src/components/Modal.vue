@@ -3,7 +3,7 @@
     <div class="modal-content">
       <h3>{{ options.title }}</h3>
       <p>{{ options.message }}</p>
-      <button @click="props.onClose">Close</button>
+      <button @click="handleClose">Close</button>
     </div>
   </div>
 </template>
@@ -20,7 +20,11 @@ const props = defineProps({
   },
 })
 
-console.log(props)
+const handleClose = () => {
+  console.log('Closing modal');
+  props.onClose();
+};
+
 </script>
 
 <style scoped lang="scss">
