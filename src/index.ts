@@ -1,4 +1,4 @@
-import { App } from 'vue';
+import {App, createApp, h} from 'vue';
 import { createPinia, Pinia } from 'pinia';
 import { useModalStore } from './store/modal'; // Import the store
 import Modal from './components/Modal.vue';
@@ -25,6 +25,26 @@ export default {
                 modalStore.closeModal(id); // Use Pinia store to close modal
             },
         };
+
+        const modalContainer = document.createElement('div');
+        document.body.appendChild(modalContainer);
+
+        // Следим за изменениями в сторе и рендерим компонент
+        modalStore.$subscribe(() => {
+            const modal = modalStore.modals[modalStore.modals.length - 1]; // Берем последнее окно
+            if (modal) {
+                const modalApp = createApp({
+                    render() {
+                        return h(Modal, {
+                            options: modal.options,
+                            onClose: () => modalStore.closeModal(modal.id), // Закрытие модалки
+                        });
+                    },
+                });
+
+                modalApp.mount(modalContainer); // Монтируем компонент в контейнер
+            }
+        });
 
         app.component('NikitaModal', Modal); // Register modal component globally
     },

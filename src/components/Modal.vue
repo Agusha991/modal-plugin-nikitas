@@ -1,9 +1,10 @@
 <template>
   <teleport to="body">
-    <div class="modal">
+    <div class="modal" v-if="visible">
       <div class="modal-content">
         <div>{{ modalStore.modals }}</div>
         <div>some text</div>
+        <div>{{ options }}</div>
 <!--        <slot/>-->
         <button @click="close">Close</button>
       </div>
@@ -12,20 +13,13 @@
 </template>
 
 <script setup lang="ts">
-//  type ModalStore = {
-//   modals: { id: number; name: string; options: Record<string, any> }[];
-//   openModal: (name: string, options?: Record<string, any>) => void;
-//   closeModal: (id: number) => void;
-// };
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {useModalStore} from "@/store/modal";
 
 defineOptions({
   name: 'Modal',
 })
  const modalStore = useModalStore(); // Directly call the store
-
- // const modalStore = ref<ModalStore>({} as ModalStore); // modalStore can be null initially
 
 console.log('check store in component', modalStore)
 
@@ -36,10 +30,13 @@ const handleOutsideClick = (e: MouseEvent) => {
   }
 };
 
-const visible = ref(false);
+const currentModal = computed(() => modalStore.modals[modalStore.modals.length - 1]); // Последнее модальное окно
+
+const visible = computed(() => !!currentModal.value); // Показывать модалку, если она есть
+const options = computed(() => currentModal.value?.options || {});
 
 const close = () => {
-  visible.value = false;
+  modalStore.closeModal(currentModal.value?.id); // Закрытие модалки через стор
 };
 
 </script>
