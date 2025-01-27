@@ -1,8 +1,8 @@
-import { createApp, h } from 'vue';
-import { createPinia } from 'pinia';
-import { useModalStore } from './store/modal';
+import {createApp, h} from 'vue';
+import {createPinia} from 'pinia';
+import {useModalStore} from './store/modal';
 import Modal from './components/Modal.vue';
-import { watch } from 'vue';
+import {watch} from 'vue';
 
 export default {
     install(app: any) {
@@ -29,27 +29,28 @@ export default {
         };
 
         // Найдем элемент с классом container
-        const container = document.querySelector('.container');
-        if (!container) {
-            console.error('Container with class "container" not found in DOM!');
-            return;
-        }
-
         const modalContainer = document.createElement('div');
         modalContainer.id = 'modal-container';
-        container.appendChild(modalContainer);
 
+// Найдите или создайте `div` с классом container
+        const container = document.querySelector('.container');
+        if (container) {
+            container.appendChild(modalContainer);
+        } else {
+            console.error('Container with class "container" not found');
+        }
         // Реактивное обновление модалок через watch
         watch(
             () => modalStore.modals,
             (newModals) => {
-                console.log('Updated modals:', newModals);
+                console.log('Modals updated in watch:', newModals);
 
-                // Удаляем предыдущие модалки
+                // Очищаем контейнер
                 modalContainer.innerHTML = '';
 
-                // Для каждой модалки создаем отдельное приложение
+                // Добавляем модалки в DOM
                 newModals.forEach((modal) => {
+                    console.log('Rendering modal:', modal);
                     const modalApp = createApp({
                         render() {
                             return h(Modal, {
@@ -58,10 +59,10 @@ export default {
                             });
                         },
                     });
-                    modalApp.mount(modalContainer); // Монтируем модалку
+                    modalApp.mount(modalContainer);
                 });
             },
-            { deep: true } // Глубокое отслеживание изменений
+            {deep: true}
         );
 
         console.log('Plugin installed successfully');

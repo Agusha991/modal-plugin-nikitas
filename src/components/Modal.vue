@@ -1,32 +1,25 @@
 <template>
-  <div v-if="visible" class="modal">
+  <div class="modal" v-if="options">
     <div class="modal-content">
       <h3>{{ options.title }}</h3>
-      <p>{{ options.text }}</p>
-      <button @click="close">Close</button>
+      <p>{{ options.message }}</p>
+      <button @click="() =>onClose">Close</button>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import {ref} from "vue";
-
-const props = defineProps({
-  options: {
-    type: Object,
-    required: true,
+<script lang="ts">
+export default {
+  props: {
+    options: {
+      type: Object,
+      required: true,
+    },
+    onClose: {
+      type: Function,
+      required: true,
+    },
   },
-  onClose: {
-    type: Function,
-    required: true,
-  },
-});
-
-const visible = ref(true);
-
-const close = () => {
-  visible.value = false;
-  props.onClose();
 };
 </script>
 
@@ -42,6 +35,7 @@ const close = () => {
   justify-content: center;
   align-items: center;
 }
+
 .modal-content {
   background: white;
   padding: 20px;
