@@ -6,6 +6,7 @@ import {createPinia} from "pinia";
 export default {
     install(app: any) {
         console.log('Plugin installation started', app.config.globalProperties);
+        console.log('Plugin installation started', app.config.globalProperties);
         if (app.config.globalProperties?.$pinia) {
             let modalStore: any; // Use the modal store
             if (!app._pinia) {
