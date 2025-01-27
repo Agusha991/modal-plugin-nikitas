@@ -8,7 +8,6 @@ export const useModalStore = defineStore('modal', {
         openModal(name: string, options: Record<string, any> = {}) {
             const id = Date.now(); // Generate unique modal ID
             this.modals.push({id, name, options});
-            console.log(`Opening modal: ${name}`, options);
             console.log('store in modal store', this.modals)
         },
         closeModal(id: number) {

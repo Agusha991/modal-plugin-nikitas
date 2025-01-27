@@ -4,7 +4,7 @@ import { useModalStore } from './store/modal'; // Import the store
 import Modal from './components/Modal.vue';
 
 export default {
-    install(app: App) {
+    install(app: any) {
         // Check if Pinia is already installed
         if (!app._context.pinia) {
             const pinia = createPinia();
@@ -17,7 +17,6 @@ export default {
 
         app.config.globalProperties.$modal = {
             open(name: string, options: Record<string, any> = {}) {
-                console.log('Opening modal', name, options);
                 modalStore.openModal(name, options); // Use Pinia store to open modal
                 console.log('Current modals:', modalStore.modals);
             },
