@@ -6,7 +6,7 @@ export default {
     install(app: App) {
         debugger
         const modalStore = useModalStore(); // Use the modal store
-
+        console.log('Modal Plugin Installed with Pinia store');
         app.config.globalProperties.$modal = {
             open(name: string, options: Record<string, any> = {}) {
                 console.log('this call', name, options);
@@ -18,8 +18,7 @@ export default {
             },
         };
 
-        app.component('GlobalModal', Modal); // Register modal component
-        console.log('Modal Plugin Installed with Pinia store');
+        app.component('Modal', Modal); // Register modal component
     },
 };
 
