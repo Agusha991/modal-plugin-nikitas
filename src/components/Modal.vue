@@ -4,7 +4,7 @@
       <div class="modal-content">
         <div>{{ modalStore.modals }}</div>
         <div>some text</div>
-        <slot></slot>
+<!--        <slot/>-->
         <button @click="close">Close</button>
       </div>
     </div>
@@ -27,7 +27,7 @@ defineOptions({
 
  // const modalStore = ref<ModalStore>({} as ModalStore); // modalStore can be null initially
 
-console.log(modalStore?.modals)
+console.log('check store in component', modalStore)
 
 const handleOutsideClick = (e: MouseEvent) => {
   const modalElement = (e.target as HTMLElement).closest('.modal');

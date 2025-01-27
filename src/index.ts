@@ -1,37 +1,37 @@
-import {App, createApp} from 'vue';
-import {useModalStore} from './store/modal'; // Import the store
+import { App } from 'vue';
+import { createPinia, Pinia } from 'pinia';
+import { useModalStore } from './store/modal'; // Import the store
 import Modal from './components/Modal.vue';
-import {createPinia} from "pinia";
 
 export default {
-    install(app: any) {
-        console.log('Plugin installation started', app.config.globalProperties);
-        console.log('Plugin installation started', app.config.globalProperties);
-        if (app.config.globalProperties?.$pinia) {
-            let modalStore: any; // Use the modal store
-            if (!app._pinia) {
-                const pinia = createPinia()
-                app.use(pinia)
-                modalStore = useModalStore();
-            }
-            console.log('Plugin installation started');
-            console.log('Modal Plugin Installed with Pinia store');
-            app.config.globalProperties.$modal = {
-                open(name: string, options: Record<string, any> = {}) {
-                    console.log('this call', name, options);
-                    modalStore.openModal(name, options); // Use Pinia store to open modal
-                    console.log('this call', modalStore.modals);
-                },
-                close(id: number) {
-                    modalStore.closeModal(id); // Use Pinia store to close modal
-                },
-            };
-
-            app.component('nikitaModal', Modal); // Register modal component
+    install(app: App) {
+        // Check if Pinia is already installed
+        if (!app._context.pinia) {
+            const pinia = createPinia();
+            app.use(pinia);
         }
+
+        const modalStore = useModalStore();
+
+        console.log('Plugin installation started');
+
+        app.config.globalProperties.$modal = {
+            open(name: string, options: Record<string, any> = {}) {
+                console.log('Opening modal', name, options);
+                modalStore.openModal(name, options); // Use Pinia store to open modal
+                console.log('Current modals:', modalStore.modals);
+            },
+            close(id: number) {
+                console.log('Closing modal', id);
+                modalStore.closeModal(id); // Use Pinia store to close modal
+            },
+        };
+
+        app.component('NikitaModal', Modal); // Register modal component globally
     },
 };
 
+// TypeScript declaration to extend ComponentCustomProperties
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
         $modal: {
