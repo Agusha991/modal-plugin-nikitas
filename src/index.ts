@@ -1,29 +1,33 @@
-import { App, createApp } from 'vue';
-import { useModalStore } from './store/modal'; // Import the store
+import {App, createApp} from 'vue';
+import {useModalStore} from './store/modal'; // Import the store
 import Modal from './components/Modal.vue';
 import {createPinia} from "pinia";
 
 export default {
     install(app: any) {
-        if (!app._pinia) {
-            const pinia = createPinia()
-            app.use(pinia)
-        }
-        console.log('Plugin installation started');
-        const modalStore = useModalStore(); // Use the modal store
-        console.log('Modal Plugin Installed with Pinia store');
-        app.config.globalProperties.$modal = {
-            open(name: string, options: Record<string, any> = {}) {
-                console.log('this call', name, options);
-                modalStore.openModal(name, options); // Use Pinia store to open modal
-                console.log('this call', modalStore.modals);
-            },
-            close(id: number) {
-                modalStore.closeModal(id); // Use Pinia store to close modal
-            },
-        };
+        console.log('Plugin installation started', app.config.globalProperties);
+        if (app.config.globalProperties?.$pinia) {
+            let modalStore: any; // Use the modal store
+            if (!app._pinia) {
+                const pinia = createPinia()
+                app.use(pinia)
+                modalStore = useModalStore();
+            }
+            console.log('Plugin installation started');
+            console.log('Modal Plugin Installed with Pinia store');
+            app.config.globalProperties.$modal = {
+                open(name: string, options: Record<string, any> = {}) {
+                    console.log('this call', name, options);
+                    modalStore.openModal(name, options); // Use Pinia store to open modal
+                    console.log('this call', modalStore.modals);
+                },
+                close(id: number) {
+                    modalStore.closeModal(id); // Use Pinia store to close modal
+                },
+            };
 
-        app.component('nikitaModal', Modal); // Register modal component
+            app.component('nikitaModal', Modal); // Register modal component
+        }
     },
 };
 
