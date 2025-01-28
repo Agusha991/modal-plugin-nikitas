@@ -3,12 +3,14 @@
     <div class="modal-content">
       <h3>{{ options.title }}</h3>
       <p>{{ options.message }}</p>
-      <button @click="handleClose">Close</button>
+      <button @click="onClose()">Close</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import {onMounted} from "vue";
+
 const props = defineProps({
   options: {
     type: Object,
@@ -24,6 +26,10 @@ const handleClose = () => {
   console.log('Closing modal');
   props.onClose();
 };
+
+onMounted(() => {
+  console.log('onClose function received:', props.onClose, props);
+})
 
 </script>
 
