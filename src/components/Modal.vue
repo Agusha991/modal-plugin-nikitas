@@ -4,6 +4,7 @@
       <h3>{{ options.title }}</h3>
       <p>{{ options.message }}</p>
       <button @click="onClose()">Close</button>
+      <button onclick="console.log('Button clicked')">Test</button>
     </div>
   </div>
 </template>
