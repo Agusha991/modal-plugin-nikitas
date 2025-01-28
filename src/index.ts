@@ -62,6 +62,7 @@ export default {
         );
 
         console.log('Plugin installed successfully');
+        console.log('Plugin installed successfullyaweqweqwe');
     },
 };
 

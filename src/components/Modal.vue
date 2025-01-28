@@ -1,9 +1,10 @@
 <template>
-  <div class="modal" v-if="options">
+  <div class="modal">
     <div class="modal-content">
       <h3>{{ options.title }}</h3>
+      <h3>helooooooo</h3>
       <p>{{ options.message }}</p>
-      <button @click="onClose()">Close</button>
+      <button @click="handleClose()">Close</button>
       <button onclick="console.log('Button clicked')">Test</button>
     </div>
   </div>
