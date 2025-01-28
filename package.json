@@ -1,8 +1,8 @@
 {
   "name": "modal-plugin-nikitas",
-  "version": "1.1.19",
+  "version": "1.1.20",
   "description": "test plugin modals",
-  "main": "dist/in4dex.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "webpack --config webpack.config.js",
