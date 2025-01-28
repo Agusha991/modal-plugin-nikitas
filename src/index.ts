@@ -15,15 +15,12 @@ export default {
         const modalStore = useModalStore();
 
         console.log('Plugin installation started');
-
         // Добавление глобального метода $modal
         app.config.globalProperties.$modal = {
             open(name: string, options: Record<string, any> = {}) {
                 modalStore.openModal(name, options); // Открытие модалки через Pinia
-                console.log('Current modals:', modalStore.modals);
             },
             close(id: number) {
-                console.log('Closing modal', id);
                 modalStore.closeModal(id); // Закрытие модалки через Pinia
             },
         };
@@ -36,20 +33,16 @@ export default {
         watch(
             () => modalStore.modals,
             (newModals) => {
-                console.log('Modals updated in watch:', newModals);
-
                 // Очищаем контейнер
                 modalContainer.innerHTML = '';
 
                 // Добавляем модалки в DOM
                 newModals.forEach((modal) => {
-                    console.log('Rendering modal:', modal);
                     const modalApp = createApp({
                         render() {
                             return h(Modal, {
                                 options: modal.options,
                                 onClose: () => {
-                                    console.log('this close modal')
                                     modalStore.closeModal(modal.id)
                                 }
                             });
@@ -60,9 +53,6 @@ export default {
             },
             {deep: true}
         );
-
-        console.log('Plugin installed successfully');
-        console.log('Plugin installed successfullyaweqweqwe');
     },
 };
 

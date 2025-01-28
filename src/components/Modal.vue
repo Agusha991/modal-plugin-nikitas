@@ -1,17 +1,14 @@
 <template>
-  <div class="modal">
+  <div class="modal" v-if="options">
     <div class="modal-content">
       <h3>{{ options.title }}</h3>
-      <h3>helooooooo</h3>
       <p>{{ options.message }}</p>
       <button @click="handleClose()">Close</button>
-      <button onclick="console.log('Button clicked')">Test</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {onMounted} from "vue";
 
 const props = defineProps({
   options: {
@@ -25,13 +22,8 @@ const props = defineProps({
 })
 
 const handleClose = () => {
-  console.log('Closing modal');
   props.onClose();
 };
-
-onMounted(() => {
-  console.log('onClose function received:', props.onClose, props);
-})
 
 </script>
 
