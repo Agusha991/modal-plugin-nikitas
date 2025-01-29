@@ -27,7 +27,7 @@ const handleClose = () => {
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .modal {
   position: fixed;
   top: 0;
@@ -37,14 +37,16 @@ const handleClose = () => {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: red;
+  background: rgba(0, 0, 0, 0.5);
   .container {
-    background: rgba(0, 0, 0, 0.5);
-  }
-
-  .modal-content {
     background: white;
     padding: 20px;
     border-radius: 8px;
+  }
+
+  .modal-content {
+
   }
 }
 

@@ -30,6 +30,19 @@ export default {
         const modalContainer = document.createElement('div');
         document.body.appendChild(modalContainer);
         modalContainer.classList.add('modal')
+        modalContainer.textContent = `
+            .modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        `;
 
         // Реактивное обновление модалок через watch
         watch(
