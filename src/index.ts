@@ -47,6 +47,7 @@ export default {
                             return h(Modal, {
                                 options: modal.options,
                                 onClose: () => {
+                                    modalContainer.classList.remove('modal')
                                     modalStore.closeModal(modal.id)
                                 }
                             });
