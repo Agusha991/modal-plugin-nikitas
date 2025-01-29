@@ -28,6 +28,7 @@ export default {
         // Найдем элемент с классом container
         const modalContainer = document.createElement('div');
         document.body.appendChild(modalContainer);
+        modalContainer.classList.add('modal')
 
         // Реактивное обновление модалок через watch
         watch(
@@ -38,6 +39,7 @@ export default {
 
                 // Добавляем модалки в DOM
                 newModals.forEach((modal) => {
+                    modalContainer.setAttribute('name', modal.name)
                     const modalApp = createApp({
                         render() {
                             return h(Modal, {

@@ -1,6 +1,6 @@
 <template>
-  <div class="modal" v-if="options">
-    <div class="modal-content">
+  <div class="modal-container" @click.stop>
+    <div class="modal-container-content" @click.stop>
       <h3>{{ options.title }}</h3>
       <p>{{ options.message }}</p>
       <button @click="handleClose()">Close</button>
@@ -34,15 +34,18 @@ const handleClose = () => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
+  .container {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+  }
 }
 
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-}
 </style>
