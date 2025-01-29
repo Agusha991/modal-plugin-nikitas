@@ -37,7 +37,6 @@ const handleClose = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: red;
   background: rgba(0, 0, 0, 0.5);
   .container {
     background: white;
