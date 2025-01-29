@@ -18,6 +18,7 @@ export default {
         // Добавление глобального метода $modal
         app.config.globalProperties.$modal = {
             open(name: string, options: Record<string, any> = {}) {
+                modalStore.openModal(name, options); // Открытие модалки через Pinia
                 console.log('Current modals:', modalStore.modals);
             },
             close(id: number) {
