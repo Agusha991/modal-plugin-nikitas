@@ -40,6 +40,14 @@ export default {
 
                 // Добавляем модалки в DOM
                 newModals.forEach((modal) => {
+                    modalContainer.dataset.modalId = String(modal.id);
+
+                    modalContainer.addEventListener('click', (event) => {
+                        // if (event.target === modalWrapper) {
+                            console.log(`Closing modal with id: ${modal.id}`);
+                            modalStore.closeModal(modal.id);
+                        // }
+                    });
                     modalContainer.setAttribute('name', modal.name)
                     modalContainer.classList.add('modal')
                     modalContainer.addEventListener('click', () => {
