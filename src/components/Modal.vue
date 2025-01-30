@@ -1,9 +1,8 @@
 <template>
   <div class="modal-container" @click.stop>
-    <div class="modal-container-header" :class="getTypeModal().nameClass">
+    <div class="modal-container-header" :class="{'modal-container-header-show-all': showMore, } + getTypeModal().nameClass">
       <div class="modal-container-header-title">
         <component :is="getTypeModal().img"/>
-        <img :src="getTypeModal().img || '/error-icon.svg'" alt="">
         <div>{{ options.title }}</div>
       </div>
       <div class="modal-container-header-show-more" @click="showMore = !showMore">
@@ -11,7 +10,6 @@
       </div>
     </div>
     <CloseIcon class="modal-button-close" @click="onClose()"/>
-<!--    <img class="modal-button-close" src="/close-icon.svg" alt="close icon" @click="onClose()"/>-->
     <div v-if="showMore" class="modal-container-subtitle">
       Описание: <br/>
       {{ options.message }}
@@ -56,7 +54,6 @@ const getTypeModal = (): { img: any, nameClass: string } => {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
 .modal {
   position: fixed;
@@ -91,10 +88,13 @@ const getTypeModal = (): { img: any, nameClass: string } => {
 
     &-header {
       padding: 20px;
-      border-radius: 12px 12px 0 0;
+      border-radius: 12px;
       font-size: 20px;
       font-weight: 400;
       line-height: 24px;
+      &-show-all{
+        border-radius: 12px 12px 0 0;
+      }
 
       &-title {
         color: white;

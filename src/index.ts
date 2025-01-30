@@ -42,10 +42,10 @@ export default {
                 newModals.forEach((modal) => {
                     modalContainer.setAttribute('name', modal.name)
                     modalContainer.classList.add('modal')
-                    // modalContainer.addEventListener('click', () => {
+                    modalContainer.addEventListener('click', () => {
                     //     modalContainer.classList.remove('modal')
-                    //     modalStore.closeModal(modal.id)
-                    // })
+                        modalStore.closeModal(modal.id)
+                    })
 
                     const modalApp = createApp({
                         render() {
