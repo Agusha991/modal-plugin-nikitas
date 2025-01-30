@@ -2,6 +2,7 @@
   <div class="modal-container" @click.stop>
     <div class="modal-container-header" :class="getTypeModal().nameClass">
       <div class="modal-container-header-title">
+        <component :is="getTypeModal().img"/>
         <img :src="getTypeModal().img || '/error-icon.svg'" alt="">
         <div>{{ options.title }}</div>
       </div>
@@ -9,7 +10,8 @@
         {{ showMore ? 'Скрыть' : 'Смотреть больше' }}
       </div>
     </div>
-    <img class="modal-button-close" src="/close-icon.svg" alt="close icon" @click="onClose()"/>
+    <CloseIcon class="modal-button-close" @click="onClose()"/>
+<!--    <img class="modal-button-close" src="/close-icon.svg" alt="close icon" @click="onClose()"/>-->
     <div v-if="showMore" class="modal-container-subtitle">
       Описание: <br/>
       {{ options.message }}
@@ -20,6 +22,9 @@
 <script setup lang="ts">
 
 import {ref} from "vue";
+import CloseIcon from "@/components/Close-icon.vue";
+import ErrorIcon from "@/components/Error-icon.vue";
+import SuccessIcon from "@/components/Success-icon.vue";
 
 interface IProps {
   options: {
@@ -34,15 +39,15 @@ const props = defineProps<IProps>()
 const showMore = ref<boolean>(false)
 
 
-const getTypeModal = (): { img: string, nameClass: string } => {
+const getTypeModal = (): { img: any, nameClass: string } => {
   switch (props.name) {
     case 'error':
-      return {img: '../../public/error-icon.svg', nameClass: 'error'}
+      return {img: ErrorIcon, nameClass: 'error'}
     case 'success':
-      return {img: '../../public/success-icon.svg', nameClass: 'success'}
+      return {img: SuccessIcon, nameClass: 'success'}
     default:
       return {
-        img: '../../public/success-icon.svg',
+        img: SuccessIcon,
         nameClass: ''
       }
   }
