@@ -33,12 +33,8 @@ interface IProps {
 const props = defineProps<IProps>()
 const showMore = ref<boolean>(false)
 
-const handleClose = () => {
-  props.onClose();
-};
 
 const getTypeModal = (): { img: string, nameClass: string } => {
-  console.log('this call modal in plugin', props.name)
   switch (props.name) {
     case 'error':
       return {img: '../../public/error-icon.svg', nameClass: 'error'}
