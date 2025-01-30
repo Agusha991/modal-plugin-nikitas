@@ -3,7 +3,7 @@ import {createPinia} from 'pinia';
 import {useModalStore} from './store/modal';
 import Modal from './components/Modal.vue';
 import {watch} from 'vue';
-import {IModalState} from "@/types";
+import {IModalState} from "./types";
 
 export default {
     install(app: any) {
@@ -42,10 +42,10 @@ export default {
                 newModals.forEach((modal) => {
                     modalContainer.setAttribute('name', modal.name)
                     modalContainer.classList.add('modal')
-                    modalContainer.addEventListener('click', () => {
-                        modalContainer.classList.remove('modal')
-                        modalStore.closeModal(modal.id)
-                    })
+                    // modalContainer.addEventListener('click', () => {
+                    //     modalContainer.classList.remove('modal')
+                    //     modalStore.closeModal(modal.id)
+                    // })
 
                     const modalApp = createApp({
                         render() {
