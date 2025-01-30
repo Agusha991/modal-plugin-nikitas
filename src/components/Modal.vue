@@ -1,6 +1,6 @@
 <template>
   <div class="modal-container" @click.stop>
-    <div class="modal-container-header" :class="{'modal-container-header-show-all': showMore, } + getTypeModal().nameClass">
+    <div class="modal-container-header" :class="{'modal-container-header-show-all': showMore} + getTypeModal().nameClass">
       <div class="modal-container-header-title">
         <component :is="getTypeModal().img"/>
         <div>{{ options.title }}</div>
