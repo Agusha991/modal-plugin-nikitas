@@ -43,6 +43,7 @@ export default {
                     modalContainer.setAttribute('name', modal.name)
                     modalContainer.classList.add('modal')
                     modalContainer.addEventListener('click', () => {
+                        console.log('this click on background')
                     //     modalContainer.classList.remove('modal')
                         modalStore.closeModal(modal.id)
                     })
