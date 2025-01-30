@@ -3,6 +3,7 @@ import {createPinia} from 'pinia';
 import {useModalStore} from './store/modal';
 import Modal from './components/Modal.vue';
 import {watch} from 'vue';
+import {IModalState} from "@/types";
 
 export default {
     install(app: any) {
@@ -17,7 +18,7 @@ export default {
         console.log('Plugin installation started');
         // Добавление глобального метода $modal
         app.config.globalProperties.$modal = {
-            open(name: string, options: Record<string, any> = {}) {
+            open(name: string, options: IModalState) {
                 modalStore.openModal(name, options); // Открытие модалки через Pinia
                 console.log('Current modals:', modalStore.modals);
             },
@@ -46,6 +47,7 @@ export default {
                         render() {
                             return h(Modal, {
                                 options: modal.options,
+                                name: modal.name,
                                 onClose: () => {
                                     modalContainer.classList.remove('modal')
                                     modalStore.closeModal(modal.id)

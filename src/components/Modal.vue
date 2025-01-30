@@ -1,29 +1,55 @@
 <template>
   <div class="modal-container" @click.stop>
-    <div class="modal-container-content" @click.stop>
-      <h3>{{ options.title }}</h3>
-      <p>{{ options.message }}</p>
-      <button @click="handleClose()">Close</button>
+    <div class="modal-container-header" :class="getTypeModal().nameClass">
+      <div class="modal-container-header-title">
+        <img :src="getTypeModal().nameClass || '/error-icon.svg'" alt="">
+        <div>{{ options.title }}</div>
+      </div>
+      <div class="modal-container-header-show-more" @click="showMore = !showMore">
+        {{ showMore ? 'Скрыть' : 'Смотреть больше' }}
+      </div>
+    </div>
+    <img class="modal-button-close" src="/close-icon.svg" alt="" @click="onClose()"/>
+    <div v-if="showMore" class="modal-container-subtitle">
+      Описание: <br/>
+      {{ options.message }}
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 
-const props = defineProps({
+import {ref} from "vue";
+
+interface IProps {
   options: {
-    type: Object,
-    required: true,
+    title: string;
+    message: string;
   },
-  onClose: {
-    type: Function,
-    required: true,
-  },
-})
+  name: string,
+  onClose: Function
+}
+
+const props = defineProps<IProps>()
+const showMore = ref<boolean>(false)
 
 const handleClose = () => {
   props.onClose();
 };
+const getTypeModal = (): { img: string, nameClass: string } => {
+  console.log('this call modal in plugin')
+  switch (props.name) {
+    case 'error':
+      return {img: '/error-icon.svg', nameClass: 'error'}
+    case 'success':
+      return {img: '/success-icon.svg', nameClass: 'success'}
+    default:
+      return {
+        img: '/error-icon.svg',
+        nameClass: ''
+      }
+  }
+}
 
 </script>
 
@@ -37,16 +63,64 @@ const handleClose = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.5);
-  .container {
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+
+  &-button-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+  }
+
+  &-container {
+    position: relative;
+    font-family: "Roboto Condensed", serif;
+    font-optical-sizing: auto;
+
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-  }
+    border-radius: 16px;
+    max-width: 540px;
+    width: 100%;
 
-  .modal-content {
+    &-header {
+      padding: 20px;
+      border-radius: 12px 12px 0 0;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 24px;
 
+      &-title {
+        color: white;
+        display: flex;
+        align-items: start;
+        gap: 20px;
+      }
+
+      &-show-more {
+        color: #F5C9C3;
+        text-align: right;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    }
+
+    &-subtitle {
+      padding: 20px;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 24px;
+    }
   }
+}
+
+
+.error {
+  background: #EE5542;
+}
+
+.success {
+  background: #15B853;
 }
 
 </style>

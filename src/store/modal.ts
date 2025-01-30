@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia';
+import {IModalState} from "@/types";
 
 export const useModalStore = defineStore('modal', {
     state: () => ({
-        modals: [] as Array<{ id: number; name: string; options: Record<string, any> }>,
+        modals: [] as Array<{ id: number; name: string; options: IModalState }>,
     }),
     actions: {
-        openModal(name: string, options: Record<string, any> = {}) {
+        openModal(name: string, options: IModalState) {
             this.modals.push({
                 id: Date.now(),
                 name,
