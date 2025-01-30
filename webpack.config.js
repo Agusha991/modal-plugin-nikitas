@@ -18,6 +18,7 @@ module.exports = {
             vue: 'vue/dist/vue.runtime.esm-bundler.js',
         },
     },
+
     module: {
         rules: [
             {
@@ -35,6 +36,10 @@ module.exports = {
                 test: /\.scss$/,
                 use: ['vue-style-loader', 'css-loader', 'sass-loader'],
             },
+            {
+                test: /\.svg$/,
+                use: ["file-loader"],
+            }
         ],
     },
     plugins: [new VueLoaderPlugin()],

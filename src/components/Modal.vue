@@ -9,7 +9,7 @@
         {{ showMore ? 'Скрыть' : 'Смотреть больше' }}
       </div>
     </div>
-    <img class="modal-button-close" src="/close-icon.svg" alt="" @click="onClose()"/>
+    <img class="modal-button-close" src="/close-icon.svg" alt="close icon" @click="onClose()"/>
     <div v-if="showMore" class="modal-container-subtitle">
       Описание: <br/>
       {{ options.message }}
@@ -66,6 +66,8 @@ const getTypeModal = (): { img: string, nameClass: string } => {
   z-index: 9999;
 
   &-button-close {
+    width: 12px;
+    height: 12px;
     position: absolute;
     top: 20px;
     right: 20px;

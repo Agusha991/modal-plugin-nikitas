@@ -14,10 +14,11 @@
     "typeRoots": ["node_modules/@types"],  // Pinia and Vue will be auto-detected
     "baseUrl": "./src",
     "paths": {
-      "@/*": ["*"]
+      "@/*": ["src/*"],
     }
   },
   "include": [
+
     "src/**/*",
     "src/**/*.ts",
     "src/**/*.vue",
