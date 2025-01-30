@@ -2,7 +2,7 @@
   <div class="modal-container" @click.stop>
     <div class="modal-container-header" :class="getTypeModal().nameClass">
       <div class="modal-container-header-title">
-        <img :src="getTypeModal().nameClass || '/error-icon.svg'" alt="">
+        <img :src="getTypeModal().img || '/error-icon.svg'" alt="">
         <div>{{ options.title }}</div>
       </div>
       <div class="modal-container-header-show-more" @click="showMore = !showMore">
@@ -36,8 +36,9 @@ const showMore = ref<boolean>(false)
 const handleClose = () => {
   props.onClose();
 };
+
 const getTypeModal = (): { img: string, nameClass: string } => {
-  console.log('this call modal in plugin')
+  console.log('this call modal in plugin', props.name)
   switch (props.name) {
     case 'error':
       return {img: '/error-icon.svg', nameClass: 'error'}
@@ -54,6 +55,8 @@ const getTypeModal = (): { img: string, nameClass: string } => {
 </script>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
 .modal {
   position: fixed;
   top: 0;
