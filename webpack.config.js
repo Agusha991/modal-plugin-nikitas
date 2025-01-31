@@ -7,7 +7,7 @@ module.exports = {
     output: {
         filename: 'index.js',
         path: path.resolve(__dirname, 'dist'),
-        library: 'nikitaModal',
+        library: 'nikitaModal', //name for import to boot file
         libraryTarget: 'umd',
         umdNamedDefine: true,
     },

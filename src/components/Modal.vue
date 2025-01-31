@@ -23,9 +23,11 @@
 <script setup lang="ts">
 
 import {ref} from "vue";
-import CloseIcon from "@/components/Close-icon.vue";
-import ErrorIcon from "@/components/Error-icon.vue";
-import SuccessIcon from "@/components/Success-icon.vue";
+import CloseIcon from "@/components/icons/Close-icon.vue";
+import ErrorIcon from "@/components/icons/Error-icon.vue";
+import SuccessIcon from "@/components/icons/Success-icon.vue";
+import WarningIcon from "@/components/icons/Warning-icon.vue";
+import InfoIcon from "@/components/icons/Info-icon.vue";
 
 interface IProps {
   options: {
@@ -46,6 +48,10 @@ const getTypeModal = (): { img: any, nameClass: string } => {
       return {img: ErrorIcon, nameClass: 'error'}
     case 'success':
       return {img: SuccessIcon, nameClass: 'success'}
+    case 'warning':
+      return {img: WarningIcon, nameClass: 'warning'}
+    case 'info':
+      return {img: InfoIcon, nameClass: 'info'}
     default:
       return {
         img: SuccessIcon,
@@ -130,6 +136,14 @@ const getTypeModal = (): { img: any, nameClass: string } => {
 
 .success {
   background: #15B853;
+}
+
+.warning {
+  background: #F4A900;
+}
+
+.warning {
+  background: #0085CF;
 }
 
 </style>
