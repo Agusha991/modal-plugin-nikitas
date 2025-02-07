@@ -1,7 +1,8 @@
 import {createApp, h} from 'vue';
 import {createPinia} from 'pinia';
 import {useModalStore} from './store/modal';
-import Modal from './components/Modal.vue';
+import Modal from './components/Modal/index.vue';
+import DataTable from './components/DataTable/index.vue';
 import {watch} from 'vue';
 import {IModalState} from "./types";
 
@@ -14,6 +15,7 @@ export default {
         }
 
         const modalStore = useModalStore();
+        app.component('DataTable', DataTable);
 
         console.log('Plugin installation started');
         // Добавление глобального метода $modal
