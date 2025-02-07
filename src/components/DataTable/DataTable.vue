@@ -67,9 +67,9 @@ const filteredRows = computed(() => {
   }
   const query = searchQuery.value.toLowerCase();
   return props.rows.filter((row: string | any) =>
-      Object.values(row).some((val) =>
-          String(val).toLowerCase().includes(query)
-      )
+    Object.values(row).some((val) =>
+      String(val).toLowerCase().includes(query)
+    )
   );
 });
 const searchExists = computed(() => filteredRows.value.length > 0);
