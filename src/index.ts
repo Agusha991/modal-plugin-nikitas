@@ -2,6 +2,8 @@ import {createApp, h} from 'vue';
 import {createPinia} from 'pinia';
 import {useModalStore} from './store/modal';
 import Modal from './components/Modal.vue';
+import DataTable from './components/DataTable/index.vue';
+
 import {watch} from 'vue';
 import {IModalState} from "./types";
 
@@ -12,6 +14,7 @@ export default {
             const pinia = createPinia();
             app.use(pinia);
         }
+        app.component('DataTableComponent', DataTable);
 
         const modalStore = useModalStore();
 

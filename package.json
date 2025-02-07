@@ -1,6 +1,6 @@
 {
   "name": "modal-plugin-nikitas",
-  "version": "1.1.58",
+  "version": "1.1.59",
   "description": "test plugin modals",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

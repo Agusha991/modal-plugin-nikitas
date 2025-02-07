@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import {ref, computed} from 'vue';
 
 interface TableColumn {
   key: string;
@@ -66,7 +66,7 @@ const filteredRows = computed(() => {
     return props.rows;
   }
   const query = searchQuery.value.toLowerCase();
-  return props.rows.filter((row) =>
+  return props.rows.filter((row: string | any) =>
       Object.values(row).some((val) =>
           String(val).toLowerCase().includes(query)
       )
@@ -112,6 +112,7 @@ const handleSearchInput = (event: Event): void => {
       padding: 0.5rem;
       border: 1px solid #ccc;
       border-radius: 4px;
+
       &:focus {
         outline: none;
         border-color: #90caf9;
