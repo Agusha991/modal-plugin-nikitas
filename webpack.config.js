@@ -2,10 +2,10 @@ const path = require('path');
 const {VueLoaderPlugin} = require('vue-loader');
 
 module.exports = {
-    entry: './src/main.ts',
+    entry: './src/index.ts',
     mode: "none",
     output: {
-        filename: 'main.js',
+        filename: 'index.js',
         path: path.resolve(__dirname, 'dist'),
         library: 'nikitaModal', //name for import to boot file
         libraryTarget: 'umd',
