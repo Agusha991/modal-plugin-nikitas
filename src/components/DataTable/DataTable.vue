@@ -66,7 +66,7 @@ const filteredRows = computed(() => {
     return props.rows;
   }
   const query = searchQuery.value.toLowerCase();
-  return props.rows.filter((row) =>
+  return props.rows.filter((row: string | any) =>
     Object.values(row).some((val) =>
       String(val).toLowerCase().includes(query)
     )
