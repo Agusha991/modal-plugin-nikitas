@@ -67,15 +67,9 @@ const filteredRows = computed(() => {
   }
   const query = searchQuery.value.toLowerCase();
   return props.rows.filter((row: string | any) =>
-<<<<<<< HEAD:src/components/DataTable/DataTable.vue
     Object.values(row).some((val) =>
       String(val).toLowerCase().includes(query)
     )
-=======
-      Object.values(row).some((val) =>
-          String(val).toLowerCase().includes(query)
-      )
->>>>>>> refs/remotes/origin/ui/tokhtar:src/components/DataTable/index.vue
   );
 });
 const searchExists = computed(() => filteredRows.value.length > 0);
