@@ -2,28 +2,28 @@
   <div class="table-container">
     <div class="search-container">
       <input
-        type="text"
-        placeholder="Поиск..."
-        :value="searchQuery"
-        @input="handleSearchInput"
+          type="text"
+          placeholder="Поиск..."
+          :value="searchQuery"
+          @input="handleSearchInput"
       />
       <p v-if="!searchExists">Ничего не найдено</p>
     </div>
 
     <table v-if="searchExists">
       <thead>
-        <tr>
-          <th v-for="column in props.columns" :key="column.key">
-            {{ column.label }}
-          </th>
-        </tr>
+      <tr>
+        <th v-for="column in props.columns" :key="column.key">
+          {{ column.label }}
+        </th>
+      </tr>
       </thead>
       <tbody>
-        <tr v-for="(row, rowIndex) in paginatedRows" :key="rowIndex">
-          <td v-for="column in props.columns" :key="column.key">
-            {{ row[column.key] }}
-          </td>
-        </tr>
+      <tr v-for="(row, rowIndex) in paginatedRows" :key="rowIndex">
+        <td v-for="column in props.columns" :key="column.key">
+          {{ row[column.key] }}
+        </td>
+      </tr>
       </tbody>
     </table>
 
@@ -40,17 +40,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import {ref, computed} from 'vue';
 
 interface TableColumn {
-  key: string;                         
-  label: string;                       
+  key: string;
+  label: string;
 }
 
 interface TableProps {
-  columns: TableColumn[];              
-  rows: Record<string, any>[];         
-  pageSize?: number;                   
+  columns: TableColumn[];
+  rows: Record<string, any>[];
+  pageSize?: number;
 }
 
 const props = defineProps<TableProps>();
@@ -66,20 +66,20 @@ const filteredRows = computed(() => {
     return props.rows;
   }
   const query = searchQuery.value.toLowerCase();
-  return props.rows.filter((row) =>
-    Object.values(row).some((val) =>
-      String(val).toLowerCase().includes(query)
-    )
+  return props.rows.filter((row: string | any) =>
+      Object.values(row).some((val) =>
+          String(val).toLowerCase().includes(query)
+      )
   );
 });
 const searchExists = computed(() => filteredRows.value.length > 0);
 const totalPages = computed(() =>
-  Math.ceil(filteredRows.value.length / rowsPerPage.value)
+    Math.ceil(filteredRows.value.length / rowsPerPage.value)
 );
 const startIndex = computed(() => (currentPage.value - 1) * rowsPerPage.value);
 const endIndex = computed(() => currentPage.value * rowsPerPage.value);
 const paginatedRows = computed(() =>
-  filteredRows.value.slice(startIndex.value, endIndex.value)
+    filteredRows.value.slice(startIndex.value, endIndex.value)
 );
 
 // functions
@@ -107,14 +107,15 @@ const handleSearchInput = (event: Event): void => {
 
   .search-container {
     margin-bottom: 1rem;
-    
+
     input {
       padding: 0.5rem;
       border: 1px solid #ccc;
       border-radius: 4px;
+
       &:focus {
         outline: none;
-        border-color: #90caf9; 
+        border-color: #90caf9;
       }
     }
   }
@@ -125,7 +126,7 @@ const handleSearchInput = (event: Event): void => {
     margin-bottom: 1rem;
 
     thead {
-      background-color: #e3f2fd; 
+      background-color: #e3f2fd;
     }
 
     th, td {
@@ -141,7 +142,7 @@ const handleSearchInput = (event: Event): void => {
     justify-content: flex-end;
 
     button {
-      background-color: #90caf9; 
+      background-color: #90caf9;
       color: #fff;
       border: none;
       padding: 0.5rem 1rem;
