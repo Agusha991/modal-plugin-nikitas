@@ -15,7 +15,6 @@ export default {
         }
 
         const modalStore = useModalStore();
-        app.component('DataTable', DataTable);
 
         console.log('Plugin installation started');
         // Добавление глобального метода $modal
@@ -75,6 +74,7 @@ export default {
             },
             {deep: true}
         );
+        // app.component('DataTable', DataTable);
     },
 };
 
