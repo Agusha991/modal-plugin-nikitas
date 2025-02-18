@@ -1,6 +1,6 @@
 import { createApp, h } from "vue";
-import { useModalStore } from "store/modal";
-import Modal from "./components/Modal/index.vue";
+import { useModalStore } from "../store/modal";
+import Modal from "../components/Modal/Modal.vue";
 import { watch } from "vue";
 import { IModalState } from "types";
 

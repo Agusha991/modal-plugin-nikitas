@@ -62,7 +62,7 @@ export default {
     };
 
     const addToast = (
-      type: string,
+      type: "success" | "error" | "info" | "warning",
       message: string,
       options: ToastOptions = {}
     ) => {
