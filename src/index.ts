@@ -1,12 +1,8 @@
-import { createApp, h } from "vue";
 import { createPinia } from "pinia";
-import { useModalStore } from "store/modal";
 import Modal from "components/Modal/index.vue";
-import DataTable from "components/DataTable.vue";
-import Tooltip from "components/Tooltip.vue";
-import Spinner from "components/Spinner.vue";
-import { watch } from "vue";
-import { IModalState } from "types";
+import DataTable from "components/DataTable/DataTable.vue";
+import Tooltip from "components/Tooltip/Tooltip.vue";
+import Spinner from "components/Spinner/Spinner.vue";
 import ModalPlugin from "plugins/modalPlugin";
 import ToasterPlugin from "plugins/toasterPlugin";
 
