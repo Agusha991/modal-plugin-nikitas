@@ -118,7 +118,7 @@ const dismissToast = () => {
 // };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .toast__item--top-left {
   top: 10px;
   left: 10px;

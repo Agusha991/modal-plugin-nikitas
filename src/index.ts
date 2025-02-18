@@ -1,10 +1,10 @@
 import { createPinia } from "pinia";
-import Modal from "components/Modal/index.vue";
-import DataTable from "components/DataTable/DataTable.vue";
-import Tooltip from "components/Tooltip/Tooltip.vue";
-import Spinner from "components/Spinner/Spinner.vue";
-import ModalPlugin from "plugins/modalPlugin";
-import ToasterPlugin from "plugins/toasterPlugin";
+import Modal from "./components/Modal/Modal.vue"
+import DataTable from "./components/DataTable/DataTable.vue";
+import Tooltip from "./components/Tooltip/Tooltip.vue";
+import Spinner from "./components/Spinner/Spinner.vue";
+import ModalPlugin from "./plugins/modalPlugin";
+import ToasterPlugin from "./plugins/toasterPlugin";
 
 const components = { Modal, DataTable, Tooltip, Spinner };
 
