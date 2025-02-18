@@ -1,9 +1,11 @@
 import { createApp, h, ref, getCurrentInstance } from "vue";
-import Toaster from "./components/Toaster/Toaster.vue";
+import Toaster from "./Toaster.vue";
 
 interface ToastOptions {
   position?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
   duration?: number;
+  dismissible?: boolean;
+  pauseOnHover?: boolean;
 }
 
 interface Toast {
@@ -12,11 +14,52 @@ interface Toast {
   message: string;
   position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
   duration: number;
+  dismissible: boolean;
+  pauseOnHover: boolean;
+  height?: number;
+}
+
+interface ToastPosition {
+  toasts: Toast[];
+  totalHeight: number;
 }
 
 export default {
   install(app: any) {
     const toasts = ref<Toast[]>([]);
+    const toastPositions = ref<Record<string, ToastPosition>>({
+      "top-right": { toasts: [], totalHeight: 0 },
+      "top-left": { toasts: [], totalHeight: 0 },
+      "bottom-right": { toasts: [], totalHeight: 0 },
+      "bottom-left": { toasts: [], totalHeight: 0 },
+    });
+
+    const calculatePosition = (toast: Toast, index: number): number => {
+      const position = toast.position;
+      const positionData = toastPositions.value[position];
+      const gap = 10;
+      let offset = 20;
+
+      for (let i = 0; i < index; i++) {
+        const prevToast = positionData.toasts[i];
+        offset += (prevToast.height || 0) + gap;
+      }
+
+      return offset;
+    };
+
+    const updateToastHeight = (id: number, height: number) => {
+      const toast = toasts.value.find((t) => t.id === id);
+      if (toast) {
+        toast.height = height;
+        const position = toast.position;
+        const positionData = toastPositions.value[position];
+        positionData.totalHeight = positionData.toasts.reduce(
+          (total, t) => total + (t.height || 0) + 10,
+          20
+        );
+      }
+    };
 
     const addToast = (
       type: string,
@@ -26,13 +69,38 @@ export default {
       const id = Date.now();
       const position = options.position || "top-right";
       const duration = options.duration || 5000;
+      const dismissible =
+        options.dismissible !== undefined ? options.dismissible : true;
+      const pauseOnHover =
+        options.pauseOnHover !== undefined ? options.pauseOnHover : true;
 
-      const toastData: Toast = { id, type, message, position, duration };
-      toasts.value.push(toastData);
+      const toastData: Toast = {
+        id,
+        type,
+        message,
+        position,
+        duration,
+        dismissible,
+        pauseOnHover,
+      };
 
-      setTimeout(() => {
-        toasts.value = toasts.value.filter((toast) => toast.id !== id);
-      }, duration);
+      toasts.value = [...toasts.value, toastData];
+      toastPositions.value[position].toasts.push(toastData);
+    };
+
+    const removeToast = (id: number) => {
+      const toast = toasts.value.find((t) => t.id === id);
+      if (toast) {
+        const position = toast.position;
+        toastPositions.value[position].toasts = toastPositions.value[
+          position
+        ].toasts.filter((t) => t.id !== id);
+
+        toastPositions.value[position].totalHeight = toastPositions.value[
+          position
+        ].toasts.reduce((total, t) => total + (t.height || 0) + 10, 20);
+      }
+      toasts.value = toasts.value.filter((t) => t.id !== id);
     };
 
     app.config.globalProperties.$toast = {
@@ -61,14 +129,28 @@ export default {
     const createAppInstance = (position: string, container: HTMLElement) => {
       createApp({
         setup() {
-          return { toasts };
+          return { toasts, toastPositions };
         },
         render() {
-          return toasts.value
-            .filter((t) => t.position === position)
-            .map((toast, index) =>
-              h(Toaster, { key: toast.id, index, ...toast })
-            );
+          const positionToasts = toastPositions.value[position].toasts;
+
+          return positionToasts.map((toast, index) => {
+            const offset = calculatePosition(toast, index);
+
+            return h(Toaster, {
+              key: toast.id,
+              ...toast,
+              style: {
+                position: "fixed",
+                [position.includes("top") ? "top" : "bottom"]: `${offset}px`,
+                [position.includes("right") ? "right" : "left"]: "20px",
+                transition: "all 0.3s ease",
+              },
+              onDismiss: () => removeToast(toast.id),
+              onHeightUpdate: (height: number) =>
+                updateToastHeight(toast.id, height),
+            });
+          });
         },
       }).mount(container);
     };

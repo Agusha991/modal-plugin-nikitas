@@ -19,7 +19,7 @@ class Timer {
   }
 
   resume(): void {
-    if (this.timerId === null) {
+    if (this.timerId === null && this.remaining > 0) {
       this.start = Date.now();
       this.timerId = window.setTimeout(() => {
         this.callback();
@@ -28,8 +28,15 @@ class Timer {
     }
   }
 
+  clear(): void {
+    if (this.timerId !== null) {
+      window.clearTimeout(this.timerId);
+      this.timerId = null;
+    }
+  }
+
   reset(delay: number): void {
-    this.pause();
+    this.clear();
     this.remaining = delay;
     this.resume();
   }

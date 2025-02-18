@@ -5,12 +5,11 @@
   >
     <div
       v-if="isActive"
+      ref="toastRef"
       class="toast__item"
       :class="[`toast__item--${type}`, `toast__item--${position}`]"
-      :style="toastStyle"
       @mouseover="toggleTimer(true)"
       @mouseleave="toggleTimer(false)"
-      @click="whenClicked"
     >
       <div class="v-toast__icon"></div>
       <p class="v-toast__text" v-html="message"></p>
@@ -22,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, onUnmounted, nextTick } from "vue";
 import Timer from "./timer";
 
 interface IProps {
@@ -31,10 +30,10 @@ interface IProps {
   position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
   dismissible: boolean;
   onDismiss: () => void;
-  onClick: () => void;
+  onClick?: () => void;
   pauseOnHover: boolean;
   duration: number;
-  index: number;
+  onHeightUpdate?: (height: number) => void;
 }
 
 const props = withDefaults(defineProps<IProps>(), {
@@ -46,11 +45,13 @@ const props = withDefaults(defineProps<IProps>(), {
   duration: 5000,
   onDismiss: () => {},
   onClick: () => {},
-  index: 0,
+  onHeightUpdate: () => {},
 });
 
 const isActive = ref<boolean>(true);
+const toastRef = ref<HTMLElement | null>(null);
 let timer: Timer | null = null;
+let resizeObserver: ResizeObserver | null = null;
 
 const transition = computed(() => {
   return ["top-left", "top-right"].includes(props.position)
@@ -58,24 +59,39 @@ const transition = computed(() => {
     : { enter: "toast--fade-in-up", leave: "toast--fade-out" };
 });
 
-const toastStyle = computed(() => {
-  const offset = props.index * 90;
-  if (props.position.includes("top")) {
-    return { top: `${10 + offset}px` };
-  } else {
-    return { bottom: `${10 + offset}px` };
+const updateHeight = async () => {
+  await nextTick();
+  if (toastRef.value) {
+    const height = toastRef.value.offsetHeight;
+    props.onHeightUpdate(height);
+  }
+};
+
+onMounted(async () => {
+  startTimer();
+  await updateHeight();
+
+  if (toastRef.value) {
+    resizeObserver = new ResizeObserver(async () => {
+      await updateHeight();
+    });
+    resizeObserver.observe(toastRef.value);
   }
 });
 
-onMounted(() => {
-  startTimer();
+onUnmounted(() => {
+  if (timer) {
+    timer.clear();
+  }
+  if (resizeObserver) {
+    resizeObserver.disconnect();
+  }
 });
 
 const startTimer = () => {
   if (props.duration > 0) {
     timer = new Timer(() => {
-      isActive.value = false;
-      props.onDismiss();
+      dismissToast();
     }, props.duration);
     timer.resume();
   }
@@ -88,16 +104,21 @@ const toggleTimer = (state: boolean) => {
 };
 
 const dismissToast = () => {
-  isActive.value = false;
-  props.onDismiss();
+  if (isActive.value) {
+    isActive.value = false;
+    if (timer) {
+      timer.clear();
+    }
+    props.onDismiss();
+  }
 };
 
-const whenClicked = () => {
-  props.onClick();
-};
+// const whenClicked = () => {
+//   props.onClick();
+// };
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .toast__item--top-left {
   top: 10px;
   left: 10px;
@@ -136,7 +157,6 @@ const whenClicked = () => {
   color: #333;
   pointer-events: auto;
   transition: all 0.3s ease-in-out;
-  margin-bottom: 10px;
 }
 
 .toast__item--success {
