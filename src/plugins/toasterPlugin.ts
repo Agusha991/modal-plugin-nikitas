@@ -1,5 +1,5 @@
 import { createApp, h, ref, getCurrentInstance } from "vue";
-import Toaster from "./Toaster.vue";
+import Toaster from "../components/Toaster/Toaster.vue";
 
 interface ToastOptions {
   position?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
