@@ -1,4 +1,4 @@
-import { createApp, h } from "vue";
+import { createApp, h, getCurrentInstance } from "vue";
 import { useModalStore } from "../store/modal";
 import Modal from "../components/Modal/Modal.vue";
 import { watch } from "vue";
@@ -64,6 +64,11 @@ export default {
     );
   },
 };
+
+export function useModal() {
+  const instance = getCurrentInstance();
+  return instance?.appContext.config.globalProperties.$modal;
+}
 
 // Расширение глобального интерфейса для TypeScript
 declare module "@vue/runtime-core" {
