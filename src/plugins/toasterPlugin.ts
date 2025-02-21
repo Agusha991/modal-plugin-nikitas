@@ -26,6 +26,17 @@ interface ToastPosition {
 
 export default {
   install(app: any) {
+    app.config.globalProperties.$toast = {
+      success: (message: string, options: ToastOptions = {}) =>
+        addToast("success", message, options),
+      error: (message: string, options: ToastOptions = {}) =>
+        addToast("error", message, options),
+      info: (message: string, options: ToastOptions = {}) =>
+        addToast("info", message, options),
+      warning: (message: string, options: ToastOptions = {}) =>
+        addToast("warning", message, options),
+    };
+    
     const toasts = ref<Toast[]>([]);
     const toastPositions = ref<Record<string, ToastPosition>>({
       "top-right": { toasts: [], totalHeight: 0 },
@@ -101,17 +112,6 @@ export default {
         ].toasts.reduce((total, t) => total + (t.height || 0) + 10, 20);
       }
       toasts.value = toasts.value.filter((t) => t.id !== id);
-    };
-
-    app.config.globalProperties.$toast = {
-      success: (message: string, options: ToastOptions = {}) =>
-        addToast("success", message, options),
-      error: (message: string, options: ToastOptions = {}) =>
-        addToast("error", message, options),
-      info: (message: string, options: ToastOptions = {}) =>
-        addToast("info", message, options),
-      warning: (message: string, options: ToastOptions = {}) =>
-        addToast("warning", message, options),
     };
 
     const createContainer = (position: string) => {
