@@ -28,11 +28,11 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import CloseIcon from "@/components/icons/CloseIcon.vue";
-import ErrorIcon from "@/components/icons/ErrorIcon.vue";
-import SuccessIcon from "@/components/icons/SuccessIcon.vue";
-import WarningIcon from "@/components/icons/WarningIcon.vue";
-import InfoIcon from "@/components/icons/InfoIcon.vue";
+import CloseIcon from "../icons/CloseIcon.vue";
+import ErrorIcon from "../icons/ErrorIcon.vue";
+import SuccessIcon from "../icons/SuccessIcon.vue";
+import WarningIcon from "../icons/WarningIcon.vue";
+import InfoIcon from "../icons/InfoIcon.vue";
 
 interface IProps {
   options: {
