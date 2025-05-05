@@ -36,15 +36,13 @@ export default {
 
                     modalContainer.addEventListener("click", (event) => {
                         console.log(`Closing modal with id: ${modal.id}`);
-                        console.log(`Closing modal with id: `, modalStore.modals);
+                        console.log("this click on background", modalStore.modals);
+                        if (modalStore.modals.length === 1) modalContainer.classList.remove("modal")
                         modalStore.closeModal(modal.id);
+                        if (modalStore.modals.length === 0) modalContainer.classList.remove("modal")
                     });
                     modalContainer.setAttribute("name", modal.name);
                     modalContainer.classList.add("modal");
-                    modalContainer.addEventListener("click", () => {
-                        console.log("this click on background");
-                        modalStore.closeModal(modal.id);
-                    });
 
                     const modalApp = createApp({
                         render() {
@@ -75,7 +73,7 @@ export function useModal() {
 declare module "@vue/runtime-core" {
     interface ComponentCustomProperties {
         $modal: {
-            open: (name: string, options?: Record<string, any>) => void;
+            open: (name: string, options?: IModalState) => void;
             close: (id: number) => void;
         };
     }
