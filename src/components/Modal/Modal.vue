@@ -56,12 +56,12 @@ const getTypeModal = computed<{ img: any; nameClass: string }>(() => {
       return { img: SuccessIcon, nameClass: "success" };
     case "warning":
       return { img: WarningIcon, nameClass: "warning" };
-    case "info":
-      return { img: InfoIcon, nameClass: "info-modal" };
+    case "modal-info":
+      return { img: InfoIcon, nameClass: "modal-info" };
     default:
       return {
         img: SuccessIcon,
-        nameClass: "info-modal",
+        nameClass: "modal-info",
       };
   }
 });
@@ -145,7 +145,7 @@ const getTypeModal = computed<{ img: any; nameClass: string }>(() => {
   background: #f4a900;
 }
 
-.info-modal {
+.modal-info {
   background: #0085cf;
 }
 </style>
