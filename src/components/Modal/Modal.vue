@@ -10,7 +10,7 @@
       <div class="modal-container-header-title">
         <component :is="getTypeModal.img" />
         <div>{{ options.title }}</div>
-        <div>{{ getTypeModal }}</div>
+        <div>{{ getTypeModal.nameClass }}</div>
       </div>
       <div
         class="modal-container-header-show-more"
@@ -57,11 +57,11 @@ const getTypeModal = computed<{ img: any; nameClass: string }>(() => {
     case "warning":
       return { img: WarningIcon, nameClass: "warning" };
     case "info":
-      return { img: InfoIcon, nameClass: "info" };
+      return { img: InfoIcon, nameClass: "info-modal" };
     default:
       return {
         img: SuccessIcon,
-        nameClass: "info",
+        nameClass: "info-modal",
       };
   }
 });
@@ -145,7 +145,7 @@ const getTypeModal = computed<{ img: any; nameClass: string }>(() => {
   background: #f4a900;
 }
 
-.info {
+.info-modal {
   background: #0085cf;
 }
 </style>
