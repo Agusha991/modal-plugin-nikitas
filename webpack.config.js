@@ -7,17 +7,11 @@ module.exports = {
     output: {
         path: __dirname + "/dist",
         filename: "index.js",
-        libraryTarget: "umd", // Universal Module Definition
+        libraryTarget: "umd",
         library: "ModalPluginNikitas",
+        libraryExport: "default",
         globalObject: "this"
     },
-    // output: {
-    //     filename: 'index.js',
-    //     path: path.resolve(__dirname, 'dist'),
-    //     library: 'nikitaModal', //name for import to boot file
-    //     libraryTarget: 'umd',
-    //     umdNamedDefine: true,
-    // },
     resolve: {
         extensions: ['.js', '.ts', '.vue', '.json'],
         alias: {
