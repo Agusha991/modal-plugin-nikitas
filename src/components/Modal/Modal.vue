@@ -10,6 +10,7 @@
       <div class="modal-container-header-title">
         <component :is="getTypeModal.img" />
         <div>{{ options.title }}</div>
+        <div>{{ getTypeModal }}</div>
       </div>
       <div
         class="modal-container-header-show-more"
@@ -60,7 +61,7 @@ const getTypeModal = computed<{ img: any; nameClass: string }>(() => {
     default:
       return {
         img: SuccessIcon,
-        nameClass: "",
+        nameClass: "info",
       };
   }
 });
@@ -144,7 +145,7 @@ const getTypeModal = computed<{ img: any; nameClass: string }>(() => {
   background: #f4a900;
 }
 
-.warning {
+.info {
   background: #0085cf;
 }
 </style>
