@@ -4,12 +4,12 @@
       class="modal-container-header"
       :class="{
         'modal-container-header-show-all': showMore,
-        [getTypeModal.nameClass]: getTypeModal.nameClass !== '',
+        [getTypeModal.nameClass]: getTypeModal.nameClass.length,
       }"
     >
       <div class="modal-container-header-title">
         <component :is="getTypeModal.img" />
-        <div>{{ options.title }}</div>
+        <div>{{ // options.title }}</div>
         <div>{{ getTypeModal.nameClass }}</div>
       </div>
       <div
