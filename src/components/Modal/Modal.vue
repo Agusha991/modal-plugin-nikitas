@@ -47,6 +47,7 @@ const props = defineProps<IProps>();
 const showMore = ref<boolean>(false);
 
 const getTypeModal = computed<{ img: any; nameClass: string }>(() => {
+  console.log(props.name, 'show props name')
   switch (props.name) {
     case "error":
       return { img: ErrorIcon, nameClass: "error" };
