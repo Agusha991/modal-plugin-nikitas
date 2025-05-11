@@ -8,8 +8,6 @@
       }"
     >
       <div class="modal-container-header-title">
-        <component :is="getTypeModal.img" />
-        <div>{{ // options.title }}</div>
         <div>{{ getTypeModal.nameClass }}</div>
       </div>
       <div
@@ -58,11 +56,6 @@ const getTypeModal = computed<{ img: any; nameClass: string }>(() => {
       return { img: WarningIcon, nameClass: "warning" };
     case "modal-info":
       return { img: InfoIcon, nameClass: "modal-info" };
-    default:
-      return {
-        img: SuccessIcon,
-        nameClass: "modal-info",
-      };
   }
 });
 </script>
@@ -94,7 +87,6 @@ const getTypeModal = computed<{ img: any; nameClass: string }>(() => {
     font-family: "Roboto Condensed", serif;
     font-optical-sizing: auto;
 
-    background: white;
     border-radius: 16px;
     max-width: 540px;
     width: 100%;
