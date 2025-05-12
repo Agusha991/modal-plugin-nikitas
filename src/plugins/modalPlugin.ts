@@ -36,12 +36,23 @@ export default {
 
                     modalContainer.addEventListener("click", (event) => {
                         console.log("this click on background", modalStore.modals.length);
-                        modalStore.closeModal(modal.id);
-                        if (modalStore.modals.length === 0) modalContainer.classList.remove("modal")
-                    });
-                    modalContainer.setAttribute("name", modal.name);
-                    modalContainer.classList.add("modal");
 
+                        modalStore.closeModal(modal.id);
+
+                        // Remove 'modal' class if only one modal was open (now it's 0)
+                        if (modalStore.modals.length <= 1) {
+                            modalContainer.classList.remove("modal");
+                        }
+                    });
+
+                    modalContainer.setAttribute("name", modal.name);
+
+                    // ✅ Only add class if there will be more than 1 modal after this one is mounted
+                    if (modalStore.modals.length > 1) {
+                        modalContainer.classList.add("modal");
+                    } else {
+                        modalContainer.classList.remove("modal");
+                    }
                     const modalApp = createApp({
                         render() {
                             return h(Modal, {
