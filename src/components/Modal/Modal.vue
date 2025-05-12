@@ -7,9 +7,6 @@
         [getTypeModal.nameClass]: getTypeModal.nameClass.length,
       }"
     >
-      <div class="modal-container-header-title">
-        <div>{{ getTypeModal.nameClass }}</div>
-      </div>
       <div
         class="modal-container-header-show-more"
         @click="showMore = !showMore"
