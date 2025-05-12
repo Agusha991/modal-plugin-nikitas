@@ -1,29 +1,33 @@
 <template>
   <div class="modal-container" @click.stop>
     <div
-      class="modal-container-header"
-      :class="{
+        class="modal-container-header"
+        :class="{
         'modal-container-header-show-all': showMore,
         [getTypeModal.nameClass]: getTypeModal.nameClass.length,
       }"
     >
+      <div class="modal-container-header-title">
+        <component :is="getTypeModal.img"/>
+        <div>{{ options.title  }}</div>
+      </div>
       <div
-        class="modal-container-header-show-more"
-        @click="showMore = !showMore"
+          class="modal-container-header-show-more"
+          @click="showMore = !showMore"
       >
         {{ showMore ? "Скрыть" : "Смотреть больше" }}
       </div>
     </div>
-    <CloseIcon class="modal-button-close" @click="onClose" />
+    <CloseIcon class="modal-button-close" @click="onClose"/>
     <div v-if="showMore" class="modal-container-subtitle">
-      Описание: <br />
+      Описание: <br/>
       {{ options.message }}
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import {ref, computed} from "vue";
 import CloseIcon from "../icons/CloseIcon.vue";
 import ErrorIcon from "../icons/ErrorIcon.vue";
 import SuccessIcon from "../icons/SuccessIcon.vue";
@@ -46,13 +50,13 @@ const getTypeModal = computed<{ img: any; nameClass: string }>(() => {
   console.log(props.name, 'show props name')
   switch (props.name) {
     case "error":
-      return { img: ErrorIcon, nameClass: "error" };
+      return {img: ErrorIcon, nameClass: "error"};
     case "success":
-      return { img: SuccessIcon, nameClass: "success" };
+      return {img: SuccessIcon, nameClass: "success"};
     case "warning":
-      return { img: WarningIcon, nameClass: "warning" };
-    case "modal-info":
-      return { img: InfoIcon, nameClass: "modal-info" };
+      return {img: WarningIcon, nameClass: "warning"};
+    case "info":
+      return {img: InfoIcon, nameClass: "info"};
   }
 });
 </script>
@@ -94,6 +98,7 @@ const getTypeModal = computed<{ img: any; nameClass: string }>(() => {
       font-size: 20px;
       font-weight: 400;
       line-height: 24px;
+
       &-show-all {
         border-radius: 12px 12px 0 0;
       }
@@ -134,7 +139,7 @@ const getTypeModal = computed<{ img: any; nameClass: string }>(() => {
   background: #f4a900;
 }
 
-.modal-info {
+.info {
   background: #0085cf;
 }
 </style>
