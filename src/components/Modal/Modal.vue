@@ -57,6 +57,8 @@ const getTypeModal = computed<{ img: any; nameClass: string }>(() => {
       return {img: WarningIcon, nameClass: "warning"};
     case "info":
       return {img: InfoIcon, nameClass: "info"};
+    default:
+      return {img: InfoIcon, nameClass: "info"};
   }
 });
 </script>
