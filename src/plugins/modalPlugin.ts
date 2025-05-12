@@ -47,19 +47,13 @@ export default {
 
                     modalContainer.setAttribute("name", modal.name);
 
-                    // ✅ Only add class if there will be more than 1 modal after this one is mounted
-                    if (modalStore.modals.length > 1) {
-                        modalContainer.classList.add("modal");
-                    } else {
-                        modalContainer.classList.remove("modal");
-                    }
                     const modalApp = createApp({
                         render() {
                             return h(Modal, {
                                 options: modal.options,
                                 name: modal.name,
                                 onClose: () => {
-                                    modalContainer.classList.remove("modal");
+                                    // modalContainer.classList.remove("modal");
                                     modalStore.closeModal(modal.id);
                                 },
                             });
