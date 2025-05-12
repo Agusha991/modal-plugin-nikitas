@@ -30,21 +30,16 @@ export default {
                 // Очищаем контейнер
                 modalContainer.innerHTML = "";
 
+                // Обновляем data-атрибут и класс
+                if (newModals.length > 1) {
+                    modalContainer.classList.add("modal");
+                } else {
+                    modalContainer.classList.remove("modal");
+                }
+
                 // Добавляем модалки в DOM
                 newModals.forEach((modal) => {
                     modalContainer.dataset.modalId = String(modal.id);
-
-                    modalContainer.addEventListener("click", (event) => {
-                        console.log("this click on background", modalStore.modals.length);
-
-                        modalStore.closeModal(modal.id);
-
-                        // Remove 'modal' class if only one modal was open (now it's 0)
-                        if (modalStore.modals.length <= 1) {
-                            modalContainer.classList.remove("modal");
-                        }
-                    });
-
                     modalContainer.setAttribute("name", modal.name);
 
                     const modalApp = createApp({
@@ -53,17 +48,33 @@ export default {
                                 options: modal.options,
                                 name: modal.name,
                                 onClose: () => {
-                                    // modalContainer.classList.remove("modal");
                                     modalStore.closeModal(modal.id);
                                 },
                             });
                         },
                     });
+
                     modalApp.mount(modalContainer);
                 });
             },
             {deep: true}
         );
+
+// ✅ Добавляем ОДИН обработчик клика по фону
+        modalContainer.addEventListener("click", (event) => {
+            console.log("click on background", modalStore.modals.length);
+
+            if (modalStore.modals.length > 0) {
+                const lastModal = modalStore.modals[modalStore.modals.length - 1];
+                modalStore.closeModal(lastModal.id);
+
+                // Удаляем класс, если это была последняя модалка
+                if (modalStore.modals.length <= 1) {
+                    modalContainer.classList.remove("modal");
+                }
+            }
+        });
+
     },
 };
 
