@@ -35,7 +35,7 @@ export default {
                     modalContainer.dataset.modalId = String(modal.id);
 
                     modalContainer.addEventListener("click", (event) => {
-                        console.log("this click on background", modalStore.modals);
+                        console.log("this click on background", modalStore.modals.length);
                         modalStore.closeModal(modal.id);
                         if (modalStore.modals.length === 1) modalContainer.classList.remove("modal")
                     });
